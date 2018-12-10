@@ -6,5 +6,5 @@ jspm_packages
 .serverless
 
 # Editor Files
-.swp
+*.swp
 .DS_Store
