@@ -1,7 +1,6 @@
-'use strict';
+"use strict";
 
 module.exports.hello = async (event, context) => {
-  
   // Step 1: Validate event data
   // Step 2: Notify PR in Github that check is running
   // Step 3: At the same time query DynamoDB if previous data exists
@@ -10,17 +9,17 @@ module.exports.hello = async (event, context) => {
   // Step 6: Run npm build
   // Step 7: Calculate delta and post back to PR in Github
   // Step 8: Save new result set to DynamoDB
-  
+
   // Potential Data structure
   // {repo: "", sha: "", branch: "", timestamp: "", data: {}}
-  
-  console.log(event)
+
+  console.log(event);
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+      message: "Go Serverless v1.1! Your function executed successfully!",
+      input: event
+    })
   };
 
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
