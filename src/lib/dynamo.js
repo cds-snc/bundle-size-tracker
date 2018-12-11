@@ -5,7 +5,7 @@ AWS.config.update({
 });
 
 module.exports.loadFromDynamo = async repo => {
-  let docClient = new AWS.DynamoDB.DocumentClient();
+  let docClient = new AWS.DynamoDB.DocumentClient({ dynamoDbCrc32: false });
   let params = {
     TableName: "bundle_sizes",
     KeyConditionExpression: "#repo = :name",
@@ -17,16 +17,19 @@ module.exports.loadFromDynamo = async repo => {
     }
   };
 
-  docClient.query(params, function(err, data) {
-    if (err) {
-      console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-    } else {
-      console.log(data);
-      let results = {};
-      data.Items.forEach(i => (results[i.sha] = i));
-      return results;
-    }
+  const p = new Promise((resolve, reject) => {
+    docClient.query(params, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        let results = {};
+        data.Items.forEach(i => (results[i.sha] = i));
+        resolve(results);
+      }
+    });
   });
+  let r = await p;
+  return r;
 };
 
 module.exports.saveToDynamo = async payload => {
@@ -36,11 +39,16 @@ module.exports.saveToDynamo = async payload => {
     TableName: "bundle_sizes",
     Item: payload
   };
-  docClient.put(params, function(err, data) {
-    if (err) {
-      console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-    } else {
-      return true;
-    }
+
+  const p = new Promise((resolve, reject) => {
+    docClient.put(params, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(true);
+      }
+    });
   });
+  let r = await p;
+  return r;
 };
