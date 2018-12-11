@@ -11,6 +11,9 @@ module.exports.hello = async (event, context) => {
   // Step 7: Calculate delta and post back to PR in Github
   // Step 8: Save new result set to DynamoDB
   
+  // Potential Data structure
+  // {repo: "", sha: "", timestamp: "", data: {}}
+  
   console.log(event)
   return {
     statusCode: 200,
