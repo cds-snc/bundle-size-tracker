@@ -1,11 +1,11 @@
 {
   "name": "bundle-size-tracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "handler.js",
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ./*.js"
+    "lint": "eslint src/*.js"
   },
   "lint-staged": {
     "*.js": [
@@ -20,6 +20,9 @@
       "pre-push": "npm test"
     }
   },
+  "dependencies": {
+    "aws-sdk": "^2.373.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
@@ -27,10 +30,7 @@
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
     "nock": "^10.0.4",
-    "supertest": "^3.3.0"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.373.0",
+    "supertest": "^3.3.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
