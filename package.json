@@ -21,9 +21,16 @@
     }
   },
   "devDependencies": {
-    "jest": "^23.6.0"
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "nock": "^10.0.4",
+    "supertest": "^3.3.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.373.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.10.0",
     "eslint-config-prettier": "^3.3.0",
