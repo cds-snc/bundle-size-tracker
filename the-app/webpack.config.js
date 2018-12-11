@@ -3,12 +3,9 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SizePlugin = require("size-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-const title = "App Context";
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({ mode }) => {
-  console.log("mode", mode);
   return {
     entry: "./src/client.js",
     mode: mode,
@@ -28,6 +25,7 @@ module.exports = ({ mode }) => {
           ignore: ["style.css", "components/*", "client.js", "server.js"]
         }
       ]),
+      /*
       mode === "development"
         ? new HtmlWebpackPlugin({
             title,
@@ -36,7 +34,8 @@ module.exports = ({ mode }) => {
         : () => {
             return null;
           },
-      new SizePlugin()
+          */
+      new SizePlugin({ history: true })
     ],
     module: {
       rules: [
