@@ -13,7 +13,7 @@ module.exports.hello = async (event, context) => {
   // Potential Data structure
   // {repo: "", sha: "", branch: "", timestamp: "", data: {}}
 
-  console.log(event);
+  console.log("This is the event:", event);
   return {
     statusCode: 200,
     body: JSON.stringify({
