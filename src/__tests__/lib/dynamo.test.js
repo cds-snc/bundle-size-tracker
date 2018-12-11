@@ -1,5 +1,5 @@
 // import request from "supertest";
-import { loadFromDynamo, saveFromDynamo } from "../../src/lib/dynamo";
+import { loadFromDynamo, saveFromDynamo } from "../../lib/dynamo";
 
 let nock = require("nock");
 
