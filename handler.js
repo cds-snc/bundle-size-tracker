@@ -12,7 +12,7 @@ module.exports.hello = async (event, context) => {
   // Step 8: Save new result set to DynamoDB
   
   // Potential Data structure
-  // {repo: "", sha: "", timestamp: "", data: {}}
+  // {repo: "", sha: "", branch: "", timestamp: "", data: {}}
   
   console.log(event)
   return {
