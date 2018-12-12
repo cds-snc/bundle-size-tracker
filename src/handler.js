@@ -7,8 +7,9 @@ module.exports.hello = async (event, context) => {
   // Step 4: Check out code from Github
   // Step 5: Validate webpack has the required plugins
   // Step 6: Run npm build
-  // Step 7: Calculate delta and post back to PR in Github
-  // Step 8: Save new result set to DynamoDB
+  // Step 7: Calculate delta 
+  // Step 8. Post back to PR in Github
+  // Step 9: Save new result set to DynamoDB
 
   // Potential Data structure
   // {repo: "", sha: "", branch: "", timestamp: "", data: {}}
