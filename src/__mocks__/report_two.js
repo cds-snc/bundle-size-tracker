@@ -1,4 +1,4 @@
-export const report_two = [
+export const reportTwo = [
   {
     timestamp: 1544635212,
     files: [
