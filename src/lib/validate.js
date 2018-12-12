@@ -42,7 +42,7 @@ export const validate = event => {
     if (!hasBeforeAndAfter(body)) return false;
     return body;
   } catch (e) {
-    console.log(e.message);
+    // console.log(e.message);
     return false;
   }
 };

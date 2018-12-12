@@ -1,4 +1,5 @@
 /* https://octokit.github.io/rest.js/ */
+require("dotenv-safe").config({ allowEmptyValues: true });
 
 const validate = event => {
   if (
