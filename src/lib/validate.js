@@ -40,8 +40,7 @@ export const validate = event => {
 
     if (!checkHeaders(headers)) return false;
     if (!hasBeforeAndAfter(body)) return false;
-
-    return true;
+    return body;
   } catch (e) {
     console.log(e.message);
     return false;

@@ -1,7 +1,21 @@
 "use strict";
+import { validate } from "./lib/validate";
+import { notify } from "./lib/notify";
 
-module.exports.hello = async (event, context) => {
-  // Step 1: Validate event data
+require("dotenv-safe").config({ allowEmptyValues: true });
+const octokit = require("@octokit/rest")();
+
+export const hello = async (event, context) => {
+  const body = validate(event);
+
+  if (!body) {
+    return false;
+  }
+
+  if (!notify(body, octokit)) {
+    return false;
+  }
+
   // Step 2: Notify PR in Github that check is running
   // Step 3: At the same time query DynamoDB if previous data exists
   // Step 4: Check out code from Github
