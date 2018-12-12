@@ -1,4 +1,3 @@
-// import request from "supertest";
 import { loadFromDynamo, saveToDynamo } from "../../lib/dynamo";
 
 let nock = require("nock");
