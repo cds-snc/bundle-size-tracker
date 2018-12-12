@@ -8,3 +8,5 @@ jspm_packages
 # Editor Files
 *.swp
 .DS_Store
+
+.env
