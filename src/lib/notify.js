@@ -1,28 +1,43 @@
 /* https://octokit.github.io/rest.js/ */
 
-require("dotenv-safe").config({ allowEmptyValues: true });
+const validate = event => {
+  if (
+    !event ||
+    !event.repository ||
+    !event.repository.name ||
+    !event.repository.owner ||
+    !event.repository.owner.name
+  ) {
+    return false;
+  }
 
-const octokit = require("@octokit/rest")();
+  return true;
+};
 
-// @todo pass in data for sha etc....
-const createStatus = async data => {
+export const notify = async (event, octokit) => {
   try {
+    if (!validate(event)) return false;
+
     octokit.authenticate({
       type: "token",
       token: process.env.GITHUB_TOKEN
     });
+
+    const repoOwner = event.repository.owner.name; // cds-snc
+    const repoName = event.repository.name; // bundle-size-tracker
+
     const result = await octokit.repos.createStatus({
-      owner: "cds-snc",
-      repo: "bundle-size-tracker",
-      sha: "2854aecdcc1bef9ad21177e6f33513fb364f3672",
-      state: "success",
-      description: "Check your bundle size Max",
+      owner: repoOwner,
+      repo: repoName,
+      sha: event.after,
+      state: "pending",
+      description: "Checking bundle size",
       context: "Bundle Tracker"
     });
-    console.log(result);
+
+    return result;
   } catch (e) {
     console.log(e);
+    return false;
   }
 };
-
-module.exports.createStatus = createStatus;
