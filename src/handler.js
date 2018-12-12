@@ -1,6 +1,7 @@
 "use strict";
 import { validate } from "./lib/validate";
 import { notify } from "./lib/notify";
+import { hasPlugin } from "./lib/hasPlugin";
 const octokit = require("@octokit/rest")();
 
 export const hello = async (event, context) => {
@@ -14,10 +15,15 @@ export const hello = async (event, context) => {
     return false;
   }
 
-  // Step 2: Notify PR in Github that check is running
   // Step 3: At the same time query DynamoDB if previous data exists
   // Step 4: Check out code from Github
-  // Step 5: Validate webpack has the required plugins
+
+  const filePath = ""; // @todo update this to use /tmp/...
+  if (filePath && !hasPlugin(filePath)) {
+    console.log("plugin not found");
+    return false;
+  }
+
   // Step 6: Run npm build
   // Step 7: Calculate delta
   // Step 8. Post back to PR in Github
