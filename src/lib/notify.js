@@ -15,9 +15,9 @@ const createStatus = async data => {
       owner: "cds-snc",
       repo: "bundle-size-tracker",
       sha: "2854aecdcc1bef9ad21177e6f33513fb364f3672",
-      state: "error",
+      state: "success",
       description: "Check your bundle size Max",
-      context: "CDS Bundle Tracker"
+      context: "Bundle Tracker"
     });
     console.log(result);
   } catch (e) {
@@ -25,4 +25,4 @@ const createStatus = async data => {
   }
 };
 
-createStatus();
+module.exports.createStatus = createStatus;
