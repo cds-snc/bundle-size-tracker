@@ -1,5 +1,6 @@
 {
   "name": "bundle-size-tracker",
+  "private": true,
   "version": "1.0.1",
   "main": "handler.js",
   "license": "MIT",
