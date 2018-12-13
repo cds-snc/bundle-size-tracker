@@ -29,7 +29,11 @@ export const hello = async (event, context) => {
     const previousData = await loadFromDynamo(fullName, before);
 
     build({ name, fullName, after });
-    await delta(previousData.data, before);
+
+    const sum = await delta({ previousData, before });
+
+    // Step 8. Post back to PR in Github
+    console.log(sum);
 
     saveToDynamo({ repo: fullName, sha: after, data: {}, branch: body.ref }); // @todo second param needs to be result of npm build
 
