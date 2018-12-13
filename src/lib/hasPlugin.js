@@ -1,18 +1,9 @@
-import fs from "fs";
+import { getFile } from "./getFile";
 
 const log = e => {
   if (process.env.NODE_ENV !== "test") {
     console.log(e.message);
   }
-};
-
-export const getFile = async file => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(file, (error, data) => {
-      if (error && error.code !== "ENOENT") reject(error);
-      resolve(data);
-    });
-  });
 };
 
 const getData = async filePath => {

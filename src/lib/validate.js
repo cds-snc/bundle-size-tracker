@@ -7,8 +7,8 @@ const parse = event => {
     return { body: false, headers: false };
   }
 
-  const body = JSON.parse(event.body);
-  const headers = JSON.stringify(event.headers);
+  const body = event.body; // @todo might need to parse JSON here
+  const headers = event.headers;
 
   if (!body || !headers) {
     throw new Error("Invalid event data passed");
@@ -20,8 +20,8 @@ const parse = event => {
 const checkHeaders = headers => {
   if (
     headers &&
-    headers.indexOf("X-GitHub-Event") !== -1 &&
-    headers.indexOf("push") !== -1
+    headers.hasOwnProperty("X-GitHub-Event") &&
+    headers["X-GitHub-Event"] === "push"
   ) {
     return true;
   }

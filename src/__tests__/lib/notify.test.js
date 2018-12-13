@@ -18,7 +18,7 @@ describe("handles notify", () => {
   });
 
   it("returns true when passing valid data", async () => {
-    const body = JSON.parse(webhook.body);
+    const { body } = await webhook;
     let results = await notify(body, octokit);
     expect(results.data.hasOwnProperty("created_at")).toEqual(true);
     expect(mockCallback.mock.calls.length).toBe(1);
