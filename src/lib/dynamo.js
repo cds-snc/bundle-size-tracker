@@ -4,7 +4,7 @@ AWS.config.update({
   region: "ca-central-1"
 });
 
-module.exports.loadFromDynamo = async repo => {
+module.exports.loadFromDynamo = async (repo, sha) => {
   let docClient = new AWS.DynamoDB.DocumentClient({ dynamoDbCrc32: false });
   let params = {
     TableName: "bundle_sizes",
@@ -24,7 +24,14 @@ module.exports.loadFromDynamo = async repo => {
       } else {
         let results = {};
         data.Items.forEach(i => (results[i.sha] = i));
-        resolve(results);
+        if (results.hasOwnProperty(sha)) {
+          resolve(results[sha]);
+        } else {
+          let d = data.Items.filter(i => i.branch === "master").sort(
+            (a, b) => b.timestamp - a.timestamp
+          );
+          resolve(d.length > 0 ? d[0] : { data: { files: [] } });
+        }
       }
     });
   });

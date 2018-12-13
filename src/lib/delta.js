@@ -36,19 +36,9 @@ export const calculateDelta = (before, after) => {
 };
 
 export const sumDelta = results => {
-  return Object.values(results).reduce((a, b) => a + b);
+  return Object.values(results).reduce((a, b) => a + b, 0);
 };
 
 export const delta = ({ previousData, before }) => {
-  let result;
-  // Step 7: Calculate delta
-  if (previousData.hasOwnProperty(before)) {
-    result = calculateDelta(previousData[before], {}); // @todo second param needs to be result of npm build
-  } else {
-    // @todo look up latest master ref
-    result = calculateDelta({}, {}); // @todo second param needs to be result of npm build
-  }
-
-  // Step 8. Post back to PR in Github
-  return sumDelta(result);
+  return sumDelta(calculateDelta(previousData.data, {})); // @todo need data from resykts as second param
 };
