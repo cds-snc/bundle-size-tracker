@@ -160,7 +160,7 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result.data).toEqual({});
+    expect(result.data).toEqual({ files: [] });
   });
 });
 

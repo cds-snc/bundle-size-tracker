@@ -30,7 +30,7 @@ module.exports.loadFromDynamo = async (repo, sha) => {
           let d = data.Items.filter(i => i.branch === "master").sort(
             (a, b) => b.timestamp - a.timestamp
           );
-          resolve(d.length > 0 ? d[0] : { data: {} });
+          resolve(d.length > 0 ? d[0] : { data: { files: [] } });
         }
       }
     });
