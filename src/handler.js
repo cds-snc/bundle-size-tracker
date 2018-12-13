@@ -19,7 +19,7 @@ export const hello = async (event, context) => {
       throw new Error("event validation failed");
     }
 
-    if (!notify(body, octo)) {
+    if (!(await notify(body, octo))) {
       throw new Error("failed to notify");
     }
 
