@@ -1,6 +1,6 @@
 const { spawnSync } = require("child_process");
 
-export const checkoutRepo = async (dir, fullName, sha) => {
+export const checkout = async (dir, fullName, sha) => {
   await require("lambda-git");
   const name = fullName.split("/")[1];
 
