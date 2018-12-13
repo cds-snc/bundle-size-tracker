@@ -18,10 +18,10 @@ export const hello = async (event, context) => {
     return false;
   }
 
-  const name = event.repository.name;
-  const fullName = event.repository.fullName;
-  const before = event.before;
-  const after = event.after;
+  const name = body.repository.name;
+  const fullName = body.repository.fullName;
+  const before = body.before;
+  const after = body.after;
 
   const previousData = await loadFromDynamo(fullName);
 
