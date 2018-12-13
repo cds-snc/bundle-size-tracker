@@ -30,6 +30,6 @@
     "webpack-dev-server": "^3.1.10"
   },
   "devDependencies": {
-    "size-plugin": "https://github.com/mick-feller/size-plugin.git"
+    "size-plugin": "^1.1.1"
   }
 }
