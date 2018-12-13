@@ -26,10 +26,10 @@ export const hello = async (event, context) => {
     const fullName = body.repository.full_name;
     const name = body.repository.name;
     const { after, before } = body;
-    const previousData = await loadFromDynamo(fullName);
+    const previousData = await loadFromDynamo(fullName, before);
 
     build({ name, fullName, after });
-    await delta({ previousData, before });
+    await delta(previousData.data, before);
 
     saveToDynamo({ repo: fullName, sha: after, data: {}, branch: body.ref }); // @todo second param needs to be result of npm build
 
