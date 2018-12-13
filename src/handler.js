@@ -25,17 +25,16 @@ export const hello = async (event, context) => {
 
   const previousData = await loadFromDynamo(fullName);
 
-  const storePath = process.env.STORE_PATH || "/tmp";
-  if (!checkout(storePath, name, after)) {
-    // @todo actually check out the sha
-    console.log(`${name} failed to checkout`);
+  const tmpPath = process.env.TMP_PATH || "/tmp";
+  if (!checkout(tmpPath, fullName, after)) {
+    console.log(`${fullName} failed to checkout`);
     return false;
   }
 
   // Use if your package.json is in a different location that root ex: /the-app
   const buildPath = process.env.buildPath || "";
 
-  const filePath = `${storePath}${buildPath}/${name}/package.json`;
+  const filePath = `${tmpPath}${buildPath}/${name}/package.json`;
   if (filePath && !hasPlugin(filePath)) {
     console.log("plugin not found");
     return false;
