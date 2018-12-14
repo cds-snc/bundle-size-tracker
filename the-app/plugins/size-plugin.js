@@ -1,9 +1,9 @@
 /* eslint-disable */
-
 function _interopDefault(ex) {
   return ex && typeof ex === "object" && "default" in ex ? ex["default"] : ex;
 }
 
+var fs = _interopDefault(require("fs"));
 var path = _interopDefault(require("path"));
 var promisify = _interopDefault(require("util.promisify"));
 var globPromise = _interopDefault(require("glob"));
@@ -31,6 +31,24 @@ var SizePlugin = function SizePlugin(options) {
   this.pattern = this.options.pattern || "**/*.{mjs,js,css,html}";
   this.exclude = this.options.exclude;
   this.save = this.options.save || function() {};
+  this.jsonPath = path.resolve(
+    process.cwd(),
+    this.options.filename || "build-sizes.json"
+  );
+};
+SizePlugin.prototype.writeFile = function writeFile(file, data) {
+  return new Promise(function($return, $error) {
+    return $return(
+      new Promise(function(resolve, reject) {
+        fs.writeFile(file, data, function(error) {
+          if (error) {
+            reject(error);
+          }
+          resolve();
+        });
+      })
+    );
+  });
 };
 SizePlugin.prototype.reverseTemplate = function reverseTemplate(
   filename,
@@ -130,9 +148,9 @@ SizePlugin.prototype.outputSizes = function outputSizes(assets) {
         output,
         fileSizes;
       return Promise.resolve(this.sizes).then(
-        function($await_1) {
+        function($await_3) {
           try {
-            sizesBefore = $await_1;
+            sizesBefore = $await_3;
             isMatched = minimatch.filter(this.pattern);
             isExcluded = this.exclude
               ? minimatch.filter(this.exclude)
@@ -147,11 +165,11 @@ SizePlugin.prototype.outputSizes = function outputSizes(assets) {
                 return gzipSize(assets[name].source());
               })
             ).then(
-              function($await_2) {
+              function($await_4) {
                 var this$1 = this;
 
                 try {
-                  sizes = $await_2;
+                  sizes = $await_4;
                   this.sizes = toMap(
                     assetNames.map(function(filename) {
                       return this$1.stripHash(filename);
@@ -207,10 +225,49 @@ SizePlugin.prototype.outputSizes = function outputSizes(assets) {
                     });
                   }
                   if (output) {
-                    this.save(fileSizes);
-                    console.log(output);
+                    var $Try_1_Post = function() {
+                      try {
+                        console.log(output);
+                        return $If_2.call(this);
+                      } catch ($boundEx) {
+                        return $error($boundEx);
+                      }
+                    }.bind(this);
+                    var $Try_1_Catch = function(e) {
+                      try {
+                        console.log(e.message);
+                        return $Try_1_Post();
+                      } catch ($boundEx) {
+                        return $error($boundEx);
+                      }
+                    };
+                    try {
+                      var report;
+                      report = [
+                        {
+                          timestamp: +new Date(),
+                          files: fileSizes
+                        }
+                      ];
+                      return this.writeFile(
+                        this.jsonPath,
+                        JSON.stringify(report)
+                      ).then(function($await_5) {
+                        try {
+                          return $Try_1_Post();
+                        } catch ($boundEx) {
+                          return $Try_1_Catch($boundEx);
+                        }
+                      }, $Try_1_Catch);
+                    } catch (e) {
+                      $Try_1_Catch(e);
+                    }
                   }
-                  return $return();
+                  function $If_2() {
+                    return $return();
+                  }
+
+                  return $If_2.call(this);
                 } catch ($boundEx) {
                   return $error($boundEx);
                 }
@@ -234,9 +291,9 @@ SizePlugin.prototype.getSizes = function getSizes(cwd) {
         cwd: cwd,
         ignore: this.exclude
       }).then(
-        function($await_3) {
+        function($await_6) {
           try {
-            files = $await_3;
+            files = $await_6;
             return Promise.all(
               files.map(function(file) {
                 return gzipSize.file(path.join(cwd, file)).catch(function() {
@@ -244,11 +301,11 @@ SizePlugin.prototype.getSizes = function getSizes(cwd) {
                 });
               })
             ).then(
-              function($await_4) {
+              function($await_7) {
                 var this$1 = this;
 
                 try {
-                  sizes = $await_4;
+                  sizes = $await_7;
                   return $return(
                     toMap(
                       files.map(function(filename) {
