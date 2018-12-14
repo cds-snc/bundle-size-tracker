@@ -18,7 +18,10 @@ export const build = async ({ name, fullName, after }) => {
     throw new Error("plugin not found");
   }
 
-  const install = spawnSync("npm", ["install"], {
+  console.log("found size plugin");
+
+  console.log("yarn install");
+  const install = spawnSync("yarn", ["install"], {
     cwd: `${tmpPath}/${name}${buildPath}/`
   });
 
@@ -26,7 +29,9 @@ export const build = async ({ name, fullName, after }) => {
     throw new Error(install.stderr.toString());
   }
 
-  const build = spawnSync("npm", ["run", "build"], {
+  console.log("running build");
+
+  const build = spawnSync("yarn", ["run", "build"], {
     cwd: `${tmpPath}/${name}${buildPath}/`
   });
 

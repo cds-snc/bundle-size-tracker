@@ -1,12 +1,11 @@
 "use strict";
-import {
+import octokit, {
   notify,
   validate,
   build,
   delta,
   loadFromDynamo,
-  saveToDynamo,
-  octo
+  saveToDynamo
 } from "./lib/";
 
 import { webhook } from "./__mocks__/webhook";
@@ -19,13 +18,16 @@ export const hello = async (event, context) => {
       throw new Error("event validation failed");
     }
 
-    if (!(await notify(body, octo))) {
+    if (!(await notify(body, octokit))) {
       throw new Error("failed to notify");
     }
 
-    const fullName = body.repository.full_name;
-    const name = body.repository.name;
-    const { after, before } = body;
+    const {
+      after,
+      before,
+      repository: { name, full_name: fullName }
+    } = body;
+
     const previousData = await loadFromDynamo(fullName, before);
 
     await build({ name, fullName, after });
