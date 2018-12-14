@@ -28,7 +28,7 @@ export const hello = async (event, context) => {
     const { after, before } = body;
     const previousData = await loadFromDynamo(fullName, before);
 
-    build({ name, fullName, after });
+    await build({ name, fullName, after });
 
     const sum = await delta({ previousData, before });
 

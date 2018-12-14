@@ -3,10 +3,10 @@ import { hasPlugin } from "./hasPlugin";
 
 const { spawnSync } = require("child_process");
 
-export const build = ({ name, fullName, after }) => {
+export const build = async ({ name, fullName, after }) => {
   // checkout the repo
   const tmpPath = process.env.TMP_PATH || "/tmp";
-  if (!checkout(tmpPath, fullName, after)) {
+  if (await !checkout(tmpPath, fullName, after)) {
     throw new Error(`${fullName} failed to checkout`);
   }
 
@@ -21,6 +21,7 @@ export const build = ({ name, fullName, after }) => {
   const install = spawnSync("npm", ["install"], {
     cwd: `${tmpPath}/${name}${buildPath}/`
   });
+
   if (install.stderr.toString()) {
     throw new Error(install.stderr.toString());
   }
@@ -28,6 +29,7 @@ export const build = ({ name, fullName, after }) => {
   const build = spawnSync("npm", ["run", "build"], {
     cwd: `${tmpPath}/${name}${buildPath}/`
   });
+
   if (build.stderr.toString()) {
     throw new Error(build.stderr.toString());
   }
