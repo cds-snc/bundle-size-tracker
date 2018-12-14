@@ -11,9 +11,9 @@ export const build = async ({ name, fullName, after }) => {
   }
 
   // Use if your package.json is in a different location than root ex: /the-app
-  const buildPath = process.env.BUILD_PATH || "";
+  const srcPath = process.env.SRC_PATH || "";
 
-  const filePath = `${tmpPath}/${name}${buildPath}/package.json`;
+  const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
   if (filePath && !hasPlugin(filePath)) {
     throw new Error("plugin not found");
   }
@@ -22,7 +22,7 @@ export const build = async ({ name, fullName, after }) => {
 
   console.log("yarn install");
   const install = spawnSync("yarn", ["install"], {
-    cwd: `${tmpPath}/${name}${buildPath}/`
+    cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
   if (install.stderr.toString()) {
@@ -32,7 +32,7 @@ export const build = async ({ name, fullName, after }) => {
   console.log("running build");
 
   const build = spawnSync("yarn", ["run", "build"], {
-    cwd: `${tmpPath}/${name}${buildPath}/`
+    cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
   if (build.stderr.toString()) {
