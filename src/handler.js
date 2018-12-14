@@ -5,7 +5,8 @@ import octokit, {
   build,
   delta,
   loadFromDynamo,
-  saveToDynamo
+  saveToDynamo,
+  readFileSizeData
 } from "./lib/";
 
 import { webhook } from "./__mocks__/webhook";
@@ -37,7 +38,14 @@ export const hello = async (event, context) => {
     // Step 8. Post back to PR in Github
     console.log(sum);
 
-    saveToDynamo({ repo: fullName, sha: after, data: {}, branch: body.ref }); // @todo second param needs to be result of npm build
+    const fileSizeData = await readFileSizeData(name);
+
+    saveToDynamo({
+      repo: fullName,
+      sha: after,
+      data: fileSizeData,
+      branch: body.ref
+    });
 
     return {
       statusCode: 200,

@@ -4,4 +4,5 @@ export { validate } from "./validate";
 export { build } from "./build";
 export { delta } from "./delta";
 export { loadFromDynamo, saveToDynamo } from "./dynamo";
+export { readFileSizeData } from "./readSizeData";
 export default octokit();
