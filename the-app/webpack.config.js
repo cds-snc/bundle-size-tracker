@@ -4,8 +4,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const SizePlugin = require("size-plugin");
 const SizePlugin = require("./plugins/size-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-// const HtmlWebpackPlugin = require("html-webpack-plugin");
+const title = "hello";
 
 module.exports = ({ mode = "production" }) => {
   return {
@@ -24,19 +25,19 @@ module.exports = ({ mode = "production" }) => {
         {
           from: "src",
           to: "./",
-          ignore: ["style.css", "components/*", "client.js", "server.js"]
+          ignore: [
+            "style.css",
+            "components/*",
+            "client.js",
+            "server.js",
+            "template/*"
+          ]
         }
       ]),
-      /*
-      mode === "development"
-        ? new HtmlWebpackPlugin({
-            title,
-            template: "src/template/index.html"
-          })
-        : () => {
-            return null;
-          },
-          */
+      new HtmlWebpackPlugin({
+        title,
+        template: "src/template/index.html"
+      }),
       new SizePlugin({
         save: fileSizes => {
           console.log(fileSizes);
