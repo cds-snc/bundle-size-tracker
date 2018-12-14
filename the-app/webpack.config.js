@@ -2,7 +2,9 @@ const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const SizePlugin = require("size-plugin");
+// const SizePlugin = require("size-plugin");
+const SizePlugin = require("./plugins/size-plugin");
+
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({ mode }) => {
@@ -35,7 +37,11 @@ module.exports = ({ mode }) => {
             return null;
           },
           */
-      new SizePlugin({ history: true })
+      new SizePlugin({
+        save: fileSizes => {
+          console.log(fileSizes);
+        }
+      })
     ],
     module: {
       rules: [
