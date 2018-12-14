@@ -7,7 +7,7 @@ const SizePlugin = require("./plugins/size-plugin");
 
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = ({ mode }) => {
+module.exports = ({ mode = "production" }) => {
   return {
     entry: "./src/client.js",
     mode: mode,
