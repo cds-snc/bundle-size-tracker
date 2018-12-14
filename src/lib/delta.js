@@ -11,12 +11,12 @@ export const calculateDelta = (before, after) => {
   let results = {};
 
   const beforeFiles = before.files.reduce((o, f) => {
-    o[f.filename] = f.size;
+    o[f.filename] = f.filesize;
     return o;
   }, {});
 
   const afterFiles = after.files.reduce((o, f) => {
-    o[f.filename] = f.size;
+    o[f.filename] = f.filesize;
     return o;
   }, {});
 
