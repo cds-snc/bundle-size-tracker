@@ -34,8 +34,8 @@ export const hello = async (event, context) => {
 
     await build({ name, fullName, after });
     const fileSizeData = await readFileSizeData(name);
-    const sum = await delta({ previousData, fileSizeData });
-
+    const sum = await delta(previousData, fileSizeData);
+    
     postResult(body, octokit, sum);
 
     saveToDynamo({

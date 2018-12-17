@@ -39,6 +39,6 @@ export const sumDelta = results => {
   return Object.values(results).reduce((a, b) => a + b, 0);
 };
 
-export const delta = ({ previousData, current }) => {
-  return sumDelta(calculateDelta(previousData.data, current)); // @todo need data from resykts as second param
+export const delta = (previousData, current) => {
+  return sumDelta(calculateDelta(previousData.data[0], current[0])); // @todo need data from resykts as second param
 };

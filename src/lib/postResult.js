@@ -32,7 +32,7 @@ export const postResult = async (event, octokit, sum) => {
       repo: repoName,
       sha: event.after,
       state: "success",
-      description: `${sum} Diff`,
+      description: `${sum} bytes`,
       context: "Bundle Tracker"
     });
 
