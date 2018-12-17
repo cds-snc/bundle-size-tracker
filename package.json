@@ -28,8 +28,7 @@
     "dotenv-safe": "^6.1.0",
     "esm": "^3.0.84",
     "lambda-git": "^0.1.2",
-    "nodemon": "^1.18.8",
-    "over-9k": "^1.0.2"
+    "nodemon": "^1.18.8"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
