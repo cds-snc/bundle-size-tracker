@@ -53,7 +53,7 @@ provider:
 
 functions:
   hello:
-    handler: src/handler.hello
+    handler: src/index.handleEvent
     events:
       - http:
           path: /measure
