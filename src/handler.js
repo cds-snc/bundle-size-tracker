@@ -35,7 +35,7 @@ export const hello = async (event, context) => {
     await build({ name, fullName, after });
     const fileSizeData = await readFileSizeData(name);
     const sum = await delta(previousData, fileSizeData);
-    
+
     postResult(body, octokit, sum);
 
     saveToDynamo({
@@ -53,8 +53,6 @@ export const hello = async (event, context) => {
       })
     };
 
-    // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-    // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
   } catch (e) {
     console.log(e.message);
     return false;
