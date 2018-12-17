@@ -10,13 +10,7 @@ import octokit, {
   postResult
 } from "./lib/";
 
-// import { webhook } from "./__mocks__/webhook";
-
 export const hello = async (event, context) => {
-  // let event = await webhook; for testing ...use data from import
-
-  console.log("event", event);
-
   try {
     const body = validate(event);
 

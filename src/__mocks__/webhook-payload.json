@@ -76,9 +76,9 @@
     "apiId": "8wbszsla50"
   },
   "body": {
-    "ref": "refs/heads/master",
+    "ref": "refs/heads/cleanup",
     "before": "0000000000000000000000000000000000000000",
-    "after": "514660a2e1e6179ac7051f1b767bfbdec8832fea",
+    "after": "aaa057d34b0d091dfb3e4703f5e3e93f0eae48de",
     "created": false,
     "deleted": false,
     "forced": false,
