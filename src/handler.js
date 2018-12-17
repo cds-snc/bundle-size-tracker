@@ -6,7 +6,8 @@ import octokit, {
   delta,
   loadFromDynamo,
   saveToDynamo,
-  readFileSizeData
+  readFileSizeData,
+  postResult
 } from "./lib/";
 
 import { webhook } from "./__mocks__/webhook";
@@ -33,11 +34,10 @@ export const hello = async (event, context) => {
 
     await build({ name, fullName, after });
     const fileSizeData = await readFileSizeData(name);
-    console.log(fileSizeData);
     const sum = await delta({ previousData, fileSizeData });
-
-    // Step 8. Post back to PR in Github
     console.log(sum);
+    // Step 8. Post back to PR in Github
+    postResult(body, octokit, sum);
 
     saveToDynamo({
       repo: fullName,
