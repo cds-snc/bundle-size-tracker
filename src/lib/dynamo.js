@@ -27,7 +27,7 @@ module.exports.loadFromDynamo = async (repo, sha) => {
         if (results.hasOwnProperty(sha)) {
           resolve(results[sha]);
         } else {
-          let d = data.Items.filter(i => i.branch === "master").sort(
+          let d = data.Items.filter(i => i.branch === "refs/heads/master").sort(
             (a, b) => b.timestamp - a.timestamp
           );
           resolve(d.length > 0 ? d[0] : { data: { files: [] } });

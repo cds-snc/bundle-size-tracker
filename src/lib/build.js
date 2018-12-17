@@ -26,7 +26,7 @@ export const build = async ({ name, fullName, after }) => {
   });
 
   if (install.stderr.toString()) {
-    throw new Error(install.stderr.toString());
+    console.log(install.stderr.toString());
   }
 
   console.log("running build");
@@ -36,7 +36,7 @@ export const build = async ({ name, fullName, after }) => {
   });
 
   if (build.stderr.toString()) {
-    throw new Error(build.stderr.toString());
+    console.log(build.stderr.toString());
   }
 
   // Get information from build

@@ -32,13 +32,12 @@ export const hello = async (event, context) => {
     const previousData = await loadFromDynamo(fullName, before);
 
     await build({ name, fullName, after });
-
-    const sum = await delta({ previousData, before });
+    const fileSizeData = await readFileSizeData(name);
+    console.log(fileSizeData);
+    const sum = await delta({ previousData, fileSizeData });
 
     // Step 8. Post back to PR in Github
     console.log(sum);
-
-    const fileSizeData = await readFileSizeData(name);
 
     saveToDynamo({
       repo: fullName,
