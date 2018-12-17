@@ -4,6 +4,9 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { Layout } from "./components/Layout";
 
+let over9000 = require('over-9k')
+over9000(9001) // true
+
 const app = express();
 const port = parseInt(process.env.PORT, 10) || 4000;
 
@@ -30,7 +33,7 @@ function htmlTemplate(reactDom) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>React SSR</title>
         </head>
-        
+
         <body>
             <div id="app">${reactDom}</div>
             <script src="./bundle.js"></script>
