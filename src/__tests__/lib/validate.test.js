@@ -19,6 +19,6 @@ describe("validates incoming event data", () => {
 
   it("returns true when passing a valid event", async () => {
     let results = validate(await webhook);
-    expect(results.after).toEqual("e729aa590382da25582f92be335b5cb499201a1b");
+    expect(results.after).toEqual("514660a2e1e6179ac7051f1b767bfbdec8832fea");
   });
 });
