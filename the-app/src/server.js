@@ -30,7 +30,7 @@ function htmlTemplate(reactDom) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>React SSR</title>
         </head>
-        
+
         <body>
             <div id="app">${reactDom}</div>
             <script src="./bundle.js"></script>

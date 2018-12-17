@@ -26,8 +26,8 @@
     "@octokit/rest": "^16.2.0",
     "aws-sdk": "^2.373.0",
     "dotenv-safe": "^6.1.0",
-    "lambda-git": "^0.1.2",
     "esm": "^3.0.84",
+    "lambda-git": "^0.1.2",
     "nodemon": "^1.18.8"
   },
   "devDependencies": {

@@ -3607,6 +3607,11 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
+over-9k@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/over-9k/-/over-9k-1.0.2.tgz#ef4f87cdef2f9021a870771a24ad084599df31e2"
+  integrity sha512-Z4IfJPSprhW3+kCuBdEveZqc45SUsAeHZ6TJnmonz3mabHe+iH1lSTB9H4PJURTZWO+1WPUwnSpJCVBU99mepA==
+
 p-defer@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-defer/-/p-defer-1.0.0.tgz#9f6eb182f6c9aa8cd743004a7d4f96b196b0fb0c"

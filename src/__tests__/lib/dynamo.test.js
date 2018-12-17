@@ -22,14 +22,14 @@ describe("loadFromDynamo", () => {
               repo: { S: "cds-snc/sample" },
               sha: { S: "abcd" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "master" },
+              branch: { S: "refs/heads/master" },
               timestamp: { N: "1544562296580" }
             },
             {
               repo: { S: "cds-snc/sample" },
               sha: { S: "efgh" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "test" },
+              branch: { S: "refs/heads/test" },
               timestamp: { N: "1544562468330" }
             }
           ],
@@ -53,7 +53,7 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "efgh");
-    expect(result.branch).toEqual("test");
+    expect(result.branch).toEqual("refs/heads/test");
   });
 
   it("returns the last master data if no sha is found", async () => {
@@ -75,14 +75,14 @@ describe("loadFromDynamo", () => {
               repo: { S: "cds-snc/sample" },
               sha: { S: "abcd" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "master" },
+              branch: { S: "refs/heads/master" },
               timestamp: { N: "1544562296580" }
             },
             {
               repo: { S: "cds-snc/sample" },
               sha: { S: "efgh" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "master" },
+              branch: { S: "refs/heads/master" },
               timestamp: { N: "1544562468330" }
             }
           ],
@@ -106,7 +106,7 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result.branch).toEqual("master");
+    expect(result.branch).toEqual("refs/heads/master");
     expect(result.sha).toEqual("efgh");
   });
 
@@ -129,14 +129,14 @@ describe("loadFromDynamo", () => {
               repo: { S: "cds-snc/sample" },
               sha: { S: "abcd" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "test" },
+              branch: { S: "refs/heads/test" },
               timestamp: { N: "1544562296580" }
             },
             {
               repo: { S: "cds-snc/sample" },
               sha: { S: "efgh" },
               data: { M: { foo: { S: "bar" } } },
-              branch: { S: "test" },
+              branch: { S: "refs/heads/test" },
               timestamp: { N: "1544562468330" }
             }
           ],
@@ -160,7 +160,7 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result.data).toEqual({ files: [] });
+    expect(result.data).toEqual([{ files: [] }]);
   });
 });
 

@@ -23,6 +23,7 @@
     "express": "^4.16.4",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.5.0",
+    "over-9k": "^1.0.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "style-loader": "^0.23.1",
