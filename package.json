@@ -2,7 +2,7 @@
   "name": "bundle-size-tracker",
   "private": true,
   "version": "1.0.1",
-  "main": "handler.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.js --watch src/lib --watch src/index.js",
@@ -28,7 +28,8 @@
     "dotenv-safe": "^6.1.0",
     "esm": "^3.0.84",
     "lambda-git": "^0.1.2",
-    "nodemon": "^1.18.8"
+    "nodemon": "^1.18.8",
+    "serverless-google-cloudfunctions": "^2.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
