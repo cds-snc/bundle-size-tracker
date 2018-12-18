@@ -22,8 +22,8 @@ export const hasPlugin = async filePath => {
     let exists = false;
     if (
       packageData &&
-      packageData.devDependencies &&
-      packageData.devDependencies["size-plugin"]
+      packageData.dependencies &&
+      packageData.dependencies["cds-size-plugin"]
     ) {
       exists = true;
     }
