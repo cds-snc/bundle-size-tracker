@@ -10,9 +10,10 @@ import octokit, {
   postResult
 } from "./lib/";
 
-export const hello = async (event, context) => {
+export const hello = async event => {
   try {
-    const body = validate(event);
+    // const body = validate(event);
+    const body = event;
 
     if (!body) {
       throw new Error("event validation failed");
