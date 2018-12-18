@@ -28,12 +28,10 @@
     "mini-css-extract-plugin": "^0.5.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "size-plugin": "https://github.com/timarney/size-plugin",
     "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
-  },
-  "devDependencies": {
-    "size-plugin": "https://github.com/timarney/size-plugin"
   }
 }
