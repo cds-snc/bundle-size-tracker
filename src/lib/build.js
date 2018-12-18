@@ -20,8 +20,8 @@ export const build = async ({ name, fullName, after }) => {
 
   console.log("found size plugin");
 
-  console.log("yarn install");
-  const install = spawnSync("yarn", ["install"], {
+  console.log("npm install");
+  const install = spawnSync("npm", ["install"], {
     cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
@@ -31,7 +31,7 @@ export const build = async ({ name, fullName, after }) => {
 
   console.log("running build");
 
-  const build = spawnSync("yarn", ["run", "build"], {
+  const build = spawnSync("npm", ["run", "build"], {
     cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
