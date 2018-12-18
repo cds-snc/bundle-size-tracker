@@ -44,6 +44,11 @@ module.exports = ({ mode = "production" }) => {
         }
       })
     ],
+    performance: {
+      hints: "warning", // "error" or false are valid too
+      maxEntrypointSize: 250000, // in bytes, default 250k
+      maxAssetSize: 450000 // in bytes
+    },
     module: {
       rules: [
         {
