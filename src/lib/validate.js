@@ -7,7 +7,12 @@ const parse = event => {
     return { body: false, headers: false };
   }
 
-  const body = event.body; // @todo might need to parse JSON here
+  let body;
+  if (typeof event.body === "object") {
+    body = event.body;
+  } else {
+    body = JSON.parse(event.body);
+  }
   const headers = event.headers;
 
   if (!body || !headers) {

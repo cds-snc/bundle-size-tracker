@@ -10,8 +10,6 @@ import octokit, {
   postResult
 } from "./lib/";
 
-import { webhook } from "./__mocks__/webhook";
-
 export const hello = async (event, context) => {
   try {
     const body = validate(event);
@@ -35,7 +33,7 @@ export const hello = async (event, context) => {
     await build({ name, fullName, after });
     const fileSizeData = await readFileSizeData(name);
     const sum = await delta(previousData, fileSizeData);
-    
+
     postResult(body, octokit, sum);
 
     saveToDynamo({
@@ -61,6 +59,5 @@ export const hello = async (event, context) => {
   }
 };
 
-(async () => {
-  hello(await webhook);
-})();
+/*
+ */
