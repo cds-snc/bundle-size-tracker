@@ -2,6 +2,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bc41e8da2ba8bc90471/maintainability)](https://codeclimate.com/github/cds-snc/bundle-size-tracker/maintainability)
 
+(Work in progress, but it more or less works)
+
 The purpose of this cloud function is to record changes in your bundle size over time.
 
 ## Requirements
