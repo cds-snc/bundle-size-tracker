@@ -3,7 +3,7 @@ import { loadFromDynamo, saveToDynamo } from "../../lib/dynamo";
 let nock = require("nock");
 
 describe("loadFromDynamo", () => {
-  it("returns data for a specific sha", async () => {
+  it("returns data for a specific sha abd tge last master", async () => {
     nock("https://dynamodb.ca-central-1.amazonaws.com:443", {
       encodedQueryParams: true
     })
@@ -53,10 +53,11 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "efgh");
-    expect(result.branch).toEqual("refs/heads/test");
+    expect(result[0].branch).toEqual("refs/heads/test");
+    expect(result[1].branch).toEqual("refs/heads/master");
   });
 
-  it("returns the last master data if no sha is found", async () => {
+  it("returns the last master data if no sha is found and master data for the sha", async () => {
     nock("https://dynamodb.ca-central-1.amazonaws.com:443", {
       encodedQueryParams: true
     })
@@ -106,11 +107,13 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result.branch).toEqual("refs/heads/master");
-    expect(result.sha).toEqual("efgh");
+    expect(result[0].branch).toEqual("refs/heads/master");
+    expect(result[0].sha).toEqual("efgh");
+    expect(result[1].branch).toEqual("refs/heads/master");
+    expect(result[1].sha).toEqual("efgh");
   });
 
-  it("returnsan empty object with no data if nothing exists", async () => {
+  it("returns an array of empty object with no data if nothing exists", async () => {
     nock("https://dynamodb.ca-central-1.amazonaws.com:443", {
       encodedQueryParams: true
     })
@@ -160,7 +163,8 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result.data).toEqual([{ files: [] }]);
+    expect(result[0]).toEqual({ data: [{ files: [] }] });
+    expect(result[1]).toEqual({ data: [{ files: [] }] });
   });
 });
 

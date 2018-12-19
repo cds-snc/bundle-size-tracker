@@ -15,7 +15,7 @@ const validate = event => {
   return true;
 };
 
-export const postResult = async (event, octokit, sum) => {
+export const postResult = async (event, octokit, msg) => {
   try {
     if (!validate(event)) return false;
 
@@ -32,7 +32,7 @@ export const postResult = async (event, octokit, sum) => {
       repo: repoName,
       sha: event.after,
       state: "success",
-      description: `${sum} bytes`,
+      description: msg,
       context: "Bundle Tracker"
     });
 

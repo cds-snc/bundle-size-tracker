@@ -29,6 +29,7 @@
     "esm": "^3.0.84",
     "lambda-git": "^0.1.2",
     "nodemon": "^1.18.8",
+    "pretty-bytes": "^5.1.0",
     "serverless-google-cloudfunctions": "^2.3.2"
   },
   "devDependencies": {
