@@ -3,7 +3,7 @@ service: bundle-size-tracker
 provider:
   name: google
   runtime: nodejs8
-  project: cds-snc
+  project: bundle-size-tools
   credentials: ~/.gcloud/keyfile.json
   memorySize: 1024
   timeout: 180s
@@ -19,6 +19,6 @@ package:
 
 functions:
   hello:
-    handler: handleEvent
+    handler: trackSize
     events:
       - http: path
