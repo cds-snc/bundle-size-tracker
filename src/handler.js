@@ -10,6 +10,8 @@ import octokit, {
   postResult
 } from "./lib/";
 
+import prettyBytes from "pretty-bytes";
+
 export const hello = async event => {
   try {
     // const body = validate(event);
@@ -38,8 +40,10 @@ export const hello = async event => {
     const fileSizeData = await readFileSizeData(name);
     const branchSum = await delta(previousBranch, fileSizeData);
     const masterSum = await delta(previousMaster, fileSizeData);
-
-    postResult(body, octokit, `${branchSum} | ${masterSum}`);
+    const msg = `Master: ${prettyBytes(masterSum, {
+      signed: true
+    })}, Branch: ${prettyBytes(branchSum, { signed: true })}`;
+    postResult(body, octokit, msg);
 
     saveToDynamo({
       repo: fullName,
@@ -48,16 +52,7 @@ export const hello = async event => {
       branch: body.ref
     });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: "Go Serverless v1.1! Your function executed successfully!",
-        input: event
-      })
-    };
-
-    // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-    // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+    return true;
   } catch (e) {
     console.log(e.message);
     return false;

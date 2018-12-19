@@ -57,7 +57,7 @@ describe("loadFromDynamo", () => {
     expect(result[1].branch).toEqual("refs/heads/master");
   });
 
-  it("returns the last master data if no sha is found and no data for the sha", async () => {
+  it("returns the last master data if no sha is found and master data for the sha", async () => {
     nock("https://dynamodb.ca-central-1.amazonaws.com:443", {
       encodedQueryParams: true
     })
@@ -107,7 +107,8 @@ describe("loadFromDynamo", () => {
         ]
       );
     let result = await loadFromDynamo("cds-snc/sample", "ijkl");
-    expect(result[0]).toEqual({ data: [{ files: [] }] });
+    expect(result[0].branch).toEqual("refs/heads/master");
+    expect(result[0].sha).toEqual("efgh");
     expect(result[1].branch).toEqual("refs/heads/master");
     expect(result[1].sha).toEqual("efgh");
   });

@@ -34,7 +34,7 @@ module.exports.loadFromDynamo = async (repo, sha) => {
           ]);
         } else {
           resolve([
-            { data: [{ files: [] }] },
+            masters.length > 0 ? masters[0] : { data: [{ files: [] }] },
             masters.length > 0 ? masters[0] : { data: [{ files: [] }] }
           ]);
         }
