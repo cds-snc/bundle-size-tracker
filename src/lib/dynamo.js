@@ -24,13 +24,19 @@ module.exports.loadFromDynamo = async (repo, sha) => {
       } else {
         let results = {};
         data.Items.forEach(i => (results[i.sha] = i));
+        const masters = data.Items.filter(
+          i => i.branch === "refs/heads/master"
+        ).sort((a, b) => b.timestamp - a.timestamp);
         if (results.hasOwnProperty(sha)) {
-          resolve(results[sha]);
+          resolve([
+            results[sha],
+            masters.length > 0 ? masters[0] : { data: [{ files: [] }] }
+          ]);
         } else {
-          let d = data.Items.filter(i => i.branch === "refs/heads/master").sort(
-            (a, b) => b.timestamp - a.timestamp
-          );
-          resolve(d.length > 0 ? d[0] : { data: [{ files: [] }] });
+          resolve([
+            { data: [{ files: [] }] },
+            masters.length > 0 ? masters[0] : { data: [{ files: [] }] }
+          ]);
         }
       }
     });

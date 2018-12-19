@@ -1,7 +1,7 @@
 "use strict";
 import octokit, {
   notify,
-  validate,
+  // validate,
   build,
   delta,
   loadFromDynamo,
@@ -29,13 +29,17 @@ export const hello = async event => {
       repository: { name, full_name: fullName }
     } = body;
 
-    const previousData = await loadFromDynamo(fullName, before);
+    const [previousBranch, previousMaster] = await loadFromDynamo(
+      fullName,
+      before
+    );
 
     await build({ name, fullName, after });
     const fileSizeData = await readFileSizeData(name);
-    const sum = await delta(previousData, fileSizeData);
+    const branchSum = await delta(previousBranch, fileSizeData);
+    const masterSum = await delta(previousMaster, fileSizeData);
 
-    postResult(body, octokit, sum);
+    postResult(body, octokit, `${branchSum} | ${masterSum}`);
 
     saveToDynamo({
       repo: fullName,
