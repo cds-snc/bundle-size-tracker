@@ -9,6 +9,7 @@ The purpose of this cloud function is to record changes in your bundle size over
 ## Requirements
 
 - Webpack
+- [Webpack Size-Plugin](https://github.com/GoogleChromeLabs/size-plugin) Current code uses a fork
 - Compatability with Node 8
 - NPM
 
@@ -25,6 +26,8 @@ The flow of information is straightforward:
 7. Cloud function install the packages in the repo and runs the build to determine bundle size
 8. Cloud function records the new results in the database 
 9. Cloud function calculates the change delta and posts it back to GitHub
+
+Charting the data is also a WIP - https://github.com/cds-snc/bundle-size-charter
 
 ## Implementation 
 
