@@ -20,7 +20,7 @@
     "X-Forwarded-Port": "443",
     "X-Forwarded-Proto": "https",
     "X-GitHub-Delivery": "d14ab652-fd84-11e8-8975-acdef92d68ba",
-    "X-GitHub-Event": "push"
+    "x-github-event": "push"
   },
   "multiValueHeaders": {
     "Accept": ["*/*"],
@@ -40,7 +40,7 @@
     "X-Forwarded-Port": ["443"],
     "X-Forwarded-Proto": ["https"],
     "X-GitHub-Delivery": ["d14ab652-fd84-11e8-8975-acdef92d68ba"],
-    "X-GitHub-Event": ["push"]
+    "x-github-event": ["push"]
   },
   "queryStringParameters": null,
   "multiValueQueryStringParameters": null,

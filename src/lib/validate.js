@@ -12,8 +12,8 @@ const parse = event => {
 const checkHeaders = headers => {
   if (
     headers &&
-    headers.hasOwnProperty("X-GitHub-Event") &&
-    headers["X-GitHub-Event"] === "push"
+    headers.hasOwnProperty("x-github-event") &&
+    headers["x-github-event"] === "push"
   ) {
     return true;
   }
