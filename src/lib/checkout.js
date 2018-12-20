@@ -1,7 +1,6 @@
 const { spawnSync } = require("child_process");
 
 export const checkout = async (dir, fullName, sha) => {
-  await require("lambda-git");
   const name = fullName.split("/")[1];
 
   const cleanup = spawnSync("rm", ["-rf", name], {
