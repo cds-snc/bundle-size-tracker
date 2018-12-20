@@ -7,7 +7,8 @@ import octokit, {
   loadFromDynamo,
   saveToDynamo,
   readFileSizeData,
-  postResult
+  postResult,
+  sendError
 } from "./lib/";
 
 import prettyBytes from "pretty-bytes";
@@ -55,6 +56,7 @@ export const hello = async event => {
     return true;
   } catch (e) {
     console.log(e.message);
+    sendError(event.body, octokit, e.message);
     return false;
   }
 };

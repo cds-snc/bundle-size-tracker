@@ -6,4 +6,5 @@ export { delta } from "./delta";
 export { loadFromDynamo, saveToDynamo } from "./dynamo";
 export { readFileSizeData } from "./readSizeData";
 export { postResult } from "./postResult";
+export { sendError } from "./sendError";
 export default octokit();
