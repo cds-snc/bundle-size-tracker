@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react"; // eslint-disable-line
 import { TimelineLite } from "gsap/all";
 
 class SimpleTween extends Component {
@@ -73,7 +73,7 @@ class SimpleTween extends Component {
             <img
               src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/logo-man.svg"
               alt=""
-              className="img-fluid logo"
+              className="img-fluid"
               ref={img => (this.logoContainer = img)}
             />
           </div>
