@@ -1,12 +1,4 @@
 const parse = event => {
-  if (
-    !event ||
-    !event.hasOwnProperty("body") ||
-    !event.hasOwnProperty("headers")
-  ) {
-    return { body: false, headers: false };
-  }
-
   const body = event.body;
   const headers = event.headers;
 

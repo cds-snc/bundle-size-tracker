@@ -1,7 +1,7 @@
 "use strict";
 import octokit, {
   notify,
-  // validate,
+  validate,
   build,
   delta,
   loadFromDynamo,
@@ -14,8 +14,7 @@ import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
   try {
-    // const body = validate(event);
-    const body = event;
+    const body = validate(event);
 
     if (!body) {
       throw new Error("event validation failed");
