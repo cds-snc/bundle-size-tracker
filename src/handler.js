@@ -4,28 +4,19 @@ import octokit, {
   validate,
   build,
   delta,
-  loadFromDynamo,
-  saveToDynamo,
-  readFileSizeData,
-  postResult
+  loadFromFirestore,
+  saveToFirestore,
+  readFileSizeData
 } from "./lib/";
-
-// import { webhook } from "./__mocks__/webhook";
 
 import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
-  /*
-  if (!event) {
-    event = webhook;
-  }
-  */
-
   try {
     const body = validate(event);
 
     if (!(await notify(body, octokit))) {
-      throw new Error("failed to notify");
+      throw new Error("Failed to notify");
     }
 
     const {
@@ -34,7 +25,7 @@ export const hello = async event => {
       repository: { name, full_name: fullName }
     } = body;
 
-    const [previousBranch, previousMaster] = await loadFromDynamo(
+    const [previousBranch, previousMaster] = await loadFromFirestore(
       fullName,
       before
     );
@@ -46,9 +37,10 @@ export const hello = async event => {
     const msg = `Master: ${prettyBytes(masterSum, {
       signed: true
     })}, Branch: ${prettyBytes(branchSum, { signed: true })}`;
-    postResult(body, octokit, msg);
 
-    saveToDynamo({
+    notify(body, octokit, { state: "success", description: msg });
+
+    saveToFirestore({
       repo: fullName,
       sha: after,
       data: fileSizeData,
