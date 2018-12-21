@@ -24,10 +24,6 @@ export const hello = async event => {
   try {
     const body = validate(event);
 
-    if (!body) {
-      throw new Error("event validation failed");
-    }
-
     if (!(await notify(body, octokit))) {
       throw new Error("failed to notify");
     }

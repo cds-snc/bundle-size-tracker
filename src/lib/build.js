@@ -14,7 +14,7 @@ export const build = async ({ name, fullName, after }) => {
   const srcPath = process.env.SRC_PATH || "";
 
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
-  if (filePath && !hasPlugin(filePath)) {
+  if (filePath && !(await hasPlugin(filePath))) {
     throw new Error("plugin not found");
   }
 
