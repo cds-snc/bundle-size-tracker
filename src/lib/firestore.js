@@ -1,6 +1,5 @@
-import MockFirebase from "mock-cloud-firestore";
-
 const admin = require("firebase-admin");
+
 let db;
 
 switch (process.env.NODE_ENV) {
@@ -13,8 +12,9 @@ switch (process.env.NODE_ENV) {
     db = admin.firestore();
     break;
   case "test":
+    const MockCloudFirestore = require("mock-cloud-firestore");
     const { fixtureData } = require("../__mocks__/firestore.js");
-    let firebase = new MockFirebase(fixtureData);
+    let firebase = new MockCloudFirestore(fixtureData);
     db = firebase.firestore();
     break;
   default:
