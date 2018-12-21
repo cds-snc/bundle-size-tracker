@@ -15,30 +15,32 @@ const validate = event => {
   return true;
 };
 
-export const notify = async (event, octokit) => {
-  try {
-    if (!validate(event)) return false;
+export const notify = async (
+  event,
+  octokit,
+  status = { state: "pending", description: "Checking bundle size" }
+) => {
+  if (!validate(event)) return false;
 
-    octokit.authenticate({
-      type: "token",
-      token: process.env.GITHUB_TOKEN
-    });
+  octokit.authenticate({
+    type: "token",
+    token: process.env.GITHUB_TOKEN
+  });
 
-    const repoOwner = event.repository.owner.name; // cds-snc
-    const repoName = event.repository.name; // bundle-size-tracker
+  const repoOwner = event.repository.owner.name; // cds-snc
+  const repoName = event.repository.name; // bundle-size-tracker
 
-    const result = await octokit.repos.createStatus({
+  const statusObj = Object.assign(
+    {
       owner: repoOwner,
       repo: repoName,
       sha: event.after,
-      state: "pending",
-      description: "Checking bundle size",
       context: "Bundle Tracker"
-    });
+    },
+    status
+  );
 
-    return result;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
+  const result = await octokit.repos.createStatus(statusObj);
+
+  return result;
 };

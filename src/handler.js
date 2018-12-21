@@ -10,15 +10,19 @@ import octokit, {
   postResult
 } from "./lib/";
 
+// import { webhook } from "./__mocks__/webhook";
+
 import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
+  /*
+  if (!event) {
+    event = webhook;
+  }
+  */
+
   try {
     const body = validate(event);
-
-    if (!body) {
-      throw new Error("event validation failed");
-    }
 
     if (!(await notify(body, octokit))) {
       throw new Error("failed to notify");
@@ -54,6 +58,8 @@ export const hello = async event => {
     return true;
   } catch (e) {
     console.log(e.message);
+    const body = validate(event);
+    await notify(body, octokit, { state: "error", description: e.message });
     return false;
   }
 };
