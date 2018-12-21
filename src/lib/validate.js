@@ -30,14 +30,9 @@ const hasBeforeAndAfter = body => {
 };
 
 export const validate = event => {
-  try {
-    const { body, headers } = parse(event);
-    if (!checkHeaders(headers) || !hasBeforeAndAfter(body)) {
-      return false;
-    }
-    return body;
-  } catch (e) {
-    // console.log(e.message);
+  const { body, headers } = parse(event);
+  if (!checkHeaders(headers) || !hasBeforeAndAfter(body)) {
     return false;
   }
+  return body;
 };

@@ -10,9 +10,17 @@ import octokit, {
   postResult
 } from "./lib/";
 
+// import { webhook } from "./__mocks__/webhook";
+
 import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
+  /*
+  if (!event) {
+    event = webhook;
+  }
+  */
+
   try {
     const body = validate(event);
 
