@@ -15,7 +15,11 @@ const validate = event => {
   return true;
 };
 
-export const notify = async (event, octokit) => {
+export const notify = async (
+  event,
+  octokit,
+  status = { state: "pending", description: "Checking bundle size" }
+) => {
   if (!validate(event)) return false;
 
   octokit.authenticate({
@@ -26,14 +30,17 @@ export const notify = async (event, octokit) => {
   const repoOwner = event.repository.owner.name; // cds-snc
   const repoName = event.repository.name; // bundle-size-tracker
 
-  const result = await octokit.repos.createStatus({
-    owner: repoOwner,
-    repo: repoName,
-    sha: event.after,
-    state: "pending",
-    description: "Checking bundle size",
-    context: "Bundle Tracker"
-  });
+  const statusObj = Object.assign(
+    {
+      owner: repoOwner,
+      repo: repoName,
+      sha: event.after,
+      context: "Bundle Tracker"
+    },
+    status
+  );
+
+  const result = await octokit.repos.createStatus(statusObj);
 
   return result;
 };

@@ -62,6 +62,8 @@ export const hello = async event => {
     return true;
   } catch (e) {
     console.log(e.message);
+    const body = validate(event);
+    await notify(body, octokit, { status: "neutral", description: e.message });
     return false;
   }
 };
