@@ -15,7 +15,7 @@ export const build = async ({ name, fullName, after }) => {
 
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
   if (filePath && !(await hasPlugin(filePath))) {
-    throw new Error("plugin not found");
+    throw new Error("size-plugin not found");
   }
 
   console.log("found size plugin");
