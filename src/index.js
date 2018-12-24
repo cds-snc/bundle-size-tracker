@@ -6,10 +6,11 @@ const trackSize = async (request, response) => {
   response.status(200).send("Done!");
 };
 
-/*
 // used for local testing
+/*
 (async () => {
   await hello();
 })();
 */
+
 module.exports.trackSize = trackSize;

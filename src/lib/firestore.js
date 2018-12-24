@@ -5,6 +5,7 @@ let db;
 switch (process.env.NODE_ENV) {
   case "dev":
     const serviceAccount = require("../../../bundle-size-tools-firebase-adminsdk.json");
+
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: process.env.FIRESTORE_URL
@@ -25,7 +26,7 @@ switch (process.env.NODE_ENV) {
 
 module.exports.loadFromFirestore = async (repo, sha) => {
   const reposRef = db.collection("bundle_sizes");
-  const query = reposRef.where("repo", "==", repo);
+  const query = reposRef.where("repo", "==", repo).orderBy("timestamp", "desc");
   let results = {};
   return query.get().then(resp => {
     var items = [];

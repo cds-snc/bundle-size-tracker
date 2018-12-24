@@ -9,10 +9,18 @@ import octokit, {
   readFileSizeData
 } from "./lib/";
 
+// import { webhook } from "./__mocks__/webhook";
+
 import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
   try {
+    /*
+    if (!event) {
+      event = await webhook;
+    }
+    */
+
     const body = validate(event);
 
     if (!(await notify(body, octokit))) {
@@ -30,7 +38,7 @@ export const hello = async event => {
       before
     );
 
-    await build({ name, fullName, after });
+    const md5str = await build({ name, fullName, after, previousMaster });
     const fileSizeData = await readFileSizeData(name);
     const branchSum = await delta(previousBranch, fileSizeData);
     const masterSum = await delta(previousMaster, fileSizeData);
@@ -44,7 +52,8 @@ export const hello = async event => {
       repo: fullName,
       sha: after,
       data: fileSizeData,
-      branch: body.ref
+      branch: body.ref,
+      md5str
     });
 
     return true;
