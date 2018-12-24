@@ -1,5 +1,6 @@
 import { checkout } from "./checkout";
 import { hasPlugin } from "./hasPlugin";
+import md5File from "md5-file/promise";
 
 const { spawnSync } = require("child_process");
 
@@ -14,9 +15,18 @@ export const build = async ({ name, fullName, after }) => {
   const srcPath = process.env.SRC_PATH || "";
 
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
+
+  const md5str = await md5File(filePath);
+
   if (filePath && !(await hasPlugin(filePath))) {
     throw new Error("size-plugin not found");
   }
+
+  //
+  //checkout
+  //get the current MD5 -> compare to previousBranch MD5 (get val from DB ya?)
+  //if diff or empty build
+  //
 
   console.log("found size plugin");
 
@@ -40,5 +50,5 @@ export const build = async ({ name, fullName, after }) => {
   }
 
   // Get information from build
-  return true;
+  return md5str;
 };
