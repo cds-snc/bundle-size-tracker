@@ -9,15 +9,17 @@ import octokit, {
   readFileSizeData
 } from "./lib/";
 
-import { webhook } from "./__mocks__/webhook";
+// import { webhook } from "./__mocks__/webhook";
 
 import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
   try {
+    /*
     if (!event) {
       event = await webhook;
     }
+    */
 
     const body = validate(event);
 
@@ -36,11 +38,7 @@ export const hello = async event => {
       before
     );
 
-    console.log(previousMaster);
-
-    const data = await loadFromFirestore(fullName, before);
-
-    const md5str = await build({ name, fullName, after });
+    const md5str = await build({ name, fullName, after, previousMaster });
     const fileSizeData = await readFileSizeData(name);
     const branchSum = await delta(previousBranch, fileSizeData);
     const masterSum = await delta(previousMaster, fileSizeData);

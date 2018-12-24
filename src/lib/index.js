@@ -5,6 +5,5 @@ export { build } from "./build";
 export { delta } from "./delta";
 export { loadFromFirestore, saveToFirestore } from "./firestore";
 export { readFileSizeData } from "./readSizeData";
-//export { postResult } from "./postResult";
 export { lockFileCheck } from "./lockFileCheck";
 export default octokit();

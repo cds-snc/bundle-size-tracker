@@ -7,8 +7,10 @@ const trackSize = async (request, response) => {
 };
 
 // used for local testing
+/*
 (async () => {
   await hello();
 })();
+*/
 
-//module.exports.trackSize = trackSize;
+module.exports.trackSize = trackSize;
