@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@octokit/rest": "^16.2.0",
-    "aws-sdk": "^2.373.0",
     "dotenv-safe": "^6.1.0",
     "esm": "^3.0.84",
     "firebase-admin": "^6.4.0",
