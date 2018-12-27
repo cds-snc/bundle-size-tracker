@@ -6,7 +6,7 @@ const { spawnSync } = require("child_process");
 const tmpPath = process.env.TMP_PATH || "/tmp";
 const srcPath = process.env.SRC_PATH || "";
 
-const pluginCheck = async ({ name }) => {
+const pluginCheck = async name => {
   // Use if your package.json is in a different location than root ex: /the-app
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
 
@@ -17,13 +17,7 @@ const pluginCheck = async ({ name }) => {
   console.log("found size plugin");
 };
 
-export const build = async ({ name, fullName, after }) => {
-  if (await !checkout(tmpPath, fullName, after)) {
-    throw new Error(`${fullName} failed to checkout`);
-  }
-
-  await pluginCheck({ name });
-
+const runInstall = name => {
   console.log("npm install");
   const install = spawnSync("npm", ["install"], {
     cwd: `${tmpPath}/${name}${srcPath}/`
@@ -32,7 +26,9 @@ export const build = async ({ name, fullName, after }) => {
   if (install.stderr.toString()) {
     console.log(install.stderr.toString());
   }
+};
 
+const runBuild = name => {
   console.log("running build");
 
   const build = spawnSync("npm", ["run", "build"], {
@@ -42,4 +38,14 @@ export const build = async ({ name, fullName, after }) => {
   if (build.stderr.toString()) {
     console.log(build.stderr.toString());
   }
+};
+
+export const build = async ({ name, fullName, after }) => {
+  if (await !checkout(tmpPath, fullName, after)) {
+    throw new Error(`${fullName} failed to checkout`);
+  }
+
+  await pluginCheck(name);
+  runInstall(name);
+  runBuild(name);
 };
