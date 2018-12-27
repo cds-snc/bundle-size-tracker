@@ -1,8 +1,8 @@
-import { getFile } from "./getFile";
+import { getFileIfExists } from "./getFile";
 import dotenv from "dotenv";
 
 const getData = async filePath => {
-  const configData = await getFile(filePath);
+  const configData = await getFileIfExists(filePath);
 
   if (!configData) {
     return false;

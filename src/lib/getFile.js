@@ -7,3 +7,12 @@ export const getFile = async file => {
     });
   });
 };
+
+export const getFileIfExists = async file => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, (err, data) => {
+      if (err) resolve(false);
+      resolve(data);
+    });
+  });
+};
