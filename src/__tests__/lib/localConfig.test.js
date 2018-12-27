@@ -13,9 +13,9 @@ describe("loads local ENV config variables specific to that repo", () => {
     } catch (e) {}
   });
 
-  it("returns 1 when the plugin exists", async () => {
+  it("returns true when the file exists ", async () => {
     const results = await loadLocalConfig(filePath());
-    expect(results).toEqual(1);
+    expect(results).toEqual(true);
   });
 
   it("only process white listed keys", async () => {
