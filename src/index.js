@@ -8,9 +8,12 @@ const trackSize = async (request, response) => {
 };
 
 // used for local testing
-
 (async () => {
-  await localPayload();
+  const argv = require("minimist")(process.argv.slice(2));
+  const { mockPayload } = argv;
+  if (mockPayload) {
+    await localPayload();
+  }
 })();
 
 module.exports.trackSize = trackSize;
