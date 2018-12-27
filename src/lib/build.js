@@ -28,12 +28,6 @@ export const build = async ({ name, fullName, after, previousMaster = {} }) => {
     throw new Error("size-plugin not found");
   }
 
-  //
-  // checkout
-  // get the current MD5 -> compare to previousBranch MD5 (get val from DB ya?)
-  // if diff or empty build
-  //
-
   console.log("found size plugin");
 
   console.log("npm install");
