@@ -3,6 +3,7 @@ import { hasPlugin } from "./hasPlugin";
 import { notify } from "./index";
 const { spawnSync } = require("child_process");
 
+const buildCmd = process.env.BUILD_CMD || "build";
 const tmpPath = process.env.TMP_PATH || "/tmp";
 const srcPath = process.env.SRC_PATH || "";
 
@@ -41,7 +42,7 @@ const runBuild = async (name, body, octokit) => {
     description: "running build"
   });
 
-  const build = spawnSync("npm", ["run", "build"], {
+  const build = spawnSync("npm", ["run", buildCmd], {
     cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
