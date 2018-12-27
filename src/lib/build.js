@@ -31,7 +31,7 @@ const runInstall = async (name, body, octokit) => {
     description: "running install"
   });
 
-  const install = spawnSync("npm", ["install"], {
+  const install = spawnSync("npm", ["--production=false", "install"], {
     cwd: getFullPath(name)
   });
 
