@@ -3,6 +3,7 @@ import { hasPlugin } from "./hasPlugin";
 
 const { spawnSync } = require("child_process");
 
+const buildCmd = process.env.BUILD_CMD || "build";
 const tmpPath = process.env.TMP_PATH || "/tmp";
 const srcPath = process.env.SRC_PATH || "";
 
@@ -31,7 +32,7 @@ const runInstall = name => {
 const runBuild = name => {
   console.log("running build");
 
-  const build = spawnSync("npm", ["run", "build"], {
+  const build = spawnSync("npm", ["run", buildCmd], {
     cwd: `${tmpPath}/${name}${srcPath}/`
   });
 
