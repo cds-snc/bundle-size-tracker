@@ -3,24 +3,13 @@ import octokit, {
   notify,
   validate,
   build,
-  delta,
   loadFromFirestore,
   saveToFirestore,
-  readFileSizeData
+  diff
 } from "./lib/";
-
-// import { webhook } from "./__mocks__/webhook";
-
-import prettyBytes from "pretty-bytes";
 
 export const hello = async event => {
   try {
-    /*
-    if (!event) {
-      event = await webhook;
-    }
-    */
-
     const body = validate(event);
 
     if (!(await notify(body, octokit))) {
@@ -39,14 +28,17 @@ export const hello = async event => {
     );
 
     const md5str = await build({ name, fullName, after, previousMaster });
-    const fileSizeData = await readFileSizeData(name);
-    const branchSum = await delta(previousBranch, fileSizeData);
-    const masterSum = await delta(previousMaster, fileSizeData);
-    const msg = `Master: ${prettyBytes(masterSum, {
-      signed: true
-    })}, Branch: ${prettyBytes(branchSum, { signed: true })}`;
 
-    notify(body, octokit, { state: "success", description: msg });
+    const { fileSizeData, msg } = await diff({
+      name,
+      previousBranch,
+      previousMaster
+    });
+
+    notify(body, octokit, {
+      state: "success",
+      description: msg
+    });
 
     saveToFirestore({
       repo: fullName,
@@ -64,6 +56,3 @@ export const hello = async event => {
     return false;
   }
 };
-
-/*
- */
