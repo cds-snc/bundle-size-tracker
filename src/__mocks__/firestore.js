@@ -5,14 +5,22 @@ export const fixtureData = {
     bundle_sizes: {
       __doc__: {
         abcd: {
-          repo: "cds-snc/sample",
-          sha: "abcd",
-          timestamp: 1544562296580,
+          sha: "bcb9ef283900698971b4e1c44817943793ef22f7",
+          timestamp: 1545931001230,
           branch: "refs/heads/master",
-          data: reports[0]
+          repo: "cds-snc/bundle-size-tracker-demo-app",
+          data: [
+            {
+              timestamp: 1545931001063,
+              files: [
+                { filesize: 36717, filename: "bundle.js" },
+                { filename: "index.html", filesize: 4474 }
+              ]
+            }
+          ]
         },
         efgh: {
-          repo: "cds-snc/sample",
+          repo: "cds-snc/bundle-size-tracker-demo-app",
           sha: "efgh",
           timestamp: 1544562468330,
           branch: "refs/heads/test",

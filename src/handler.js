@@ -51,6 +51,8 @@ const reportDiff = async ({
     data: fileSizeData,
     branch: body.ref
   });
+
+  return msg;
 };
 
 export const hello = async event => {
@@ -70,9 +72,15 @@ export const hello = async event => {
 
     await build({ name, fullName, after, previousMaster }, octokit, body);
 
-    reportDiff({ fullName, name, after, previousBranch, previousMaster, body });
-
-    return true;
+    const msg = await reportDiff({
+      fullName,
+      name,
+      after,
+      previousBranch,
+      previousMaster,
+      body
+    });
+    return msg;
   } catch (e) {
     console.log(e.message);
     const body = validate(event);
