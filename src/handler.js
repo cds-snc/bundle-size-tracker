@@ -8,8 +8,17 @@ import octokit, {
   diff
 } from "./lib/";
 
+// import { webhook } from "./__mocks__/webhook";
+
 export const hello = async event => {
   try {
+    /*
+    if (!event) {
+      console.log("use mock data");
+      event = await webhook;
+    }
+    */
+
     const body = validate(event);
 
     if (!(await notify(body, octokit))) {

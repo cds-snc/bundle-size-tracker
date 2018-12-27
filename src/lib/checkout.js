@@ -31,7 +31,7 @@ const clone = (dir, fullName) => {
 export const checkout = async (dir, fullName, sha) => {
   const name = fullName.split("/")[1];
 
-  if (!cleanup(dir, name) || !clone()) {
+  if (!cleanup(dir, name) || !clone(dir, fullName)) {
     return false;
   }
 
