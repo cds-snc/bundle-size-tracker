@@ -1,8 +1,6 @@
 const { spawnSync } = require("child_process");
 
-export const checkout = async (dir, fullName, sha) => {
-  const name = fullName.split("/")[1];
-
+const cleanup = (dir, name) => {
   const cleanup = spawnSync("rm", ["-rf", name], {
     cwd: dir
   });
@@ -11,6 +9,10 @@ export const checkout = async (dir, fullName, sha) => {
     return false;
   }
 
+  return true;
+};
+
+const clone = (dir, fullName) => {
   const clone = spawnSync(
     "git",
     ["clone", `https://github.com/${fullName}`, "--quiet"],
@@ -20,6 +22,16 @@ export const checkout = async (dir, fullName, sha) => {
   );
   if (clone.stderr.toString()) {
     console.log(clone.stderr.toString());
+    return false;
+  }
+
+  return true;
+};
+
+export const checkout = async (dir, fullName, sha) => {
+  const name = fullName.split("/")[1];
+
+  if (!cleanup(dir, name) || !clone()) {
     return false;
   }
 
