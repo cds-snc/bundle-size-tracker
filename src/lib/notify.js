@@ -27,8 +27,15 @@ export const notify = async (
     token: process.env.GITHUB_TOKEN
   });
 
-  const repoOwner = event.repository.owner.name; // cds-snc
-  const repoName = event.repository.name; // bundle-size-tracker
+  const repoOwner = event.repository.owner.name;
+  const repoName = event.repository.name;
+
+  if (status.state === "success" && process.env.CHARTING_URL !== "") {
+    const branch = event.ref.replace("refs/heads/", "");
+    status.target_url = `${process.env.CHARTING_URL}?repo=${
+      event.repository.full_name
+    }&branch=${branch}`;
+  }
 
   const statusObj = Object.assign(
     {
