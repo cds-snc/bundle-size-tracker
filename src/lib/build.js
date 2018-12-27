@@ -1,14 +1,18 @@
 import { checkout } from "./checkout";
 import { hasPlugin } from "./hasPlugin";
+import { loadLocalConfig } from "./localConfig";
 import { notify } from "./index";
 const { spawnSync } = require("child_process");
 
-const buildCmd = process.env.BUILD_CMD || "build";
 const tmpPath = process.env.TMP_PATH || "/tmp";
-const srcPath = process.env.SRC_PATH || "";
+
+const getFullPath = name => {
+  const srcPath = process.env.SRC_PATH || "";
+  return `${tmpPath}/${name}${srcPath}/`;
+};
 
 const pluginCheck = async (name, body, octokit) => {
-  // Use if your package.json is in a different location than root ex: /the-app
+  const srcPath = process.env.SRC_PATH || "";
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
 
   if (filePath && !(await hasPlugin(filePath))) {
@@ -28,7 +32,7 @@ const runInstall = async (name, body, octokit) => {
   });
 
   const install = spawnSync("npm", ["install"], {
-    cwd: `${tmpPath}/${name}${srcPath}/`
+    cwd: getFullPath(name)
   });
 
   if (install.stderr.toString()) {
@@ -42,8 +46,10 @@ const runBuild = async (name, body, octokit) => {
     description: "running build"
   });
 
+  const buildCmd = process.env.BUILD_CMD || "build";
+
   const build = spawnSync("npm", ["run", buildCmd], {
-    cwd: `${tmpPath}/${name}${srcPath}/`
+    cwd: getFullPath(name)
   });
 
   if (build.stderr.toString()) {
@@ -56,6 +62,7 @@ export const build = async ({ name, fullName, after }, octokit, body) => {
     throw new Error(`${fullName} failed to checkout`);
   }
 
+  await loadLocalConfig(`${tmpPath}/${name}/.bundle-size-tracker-config`);
   await pluginCheck(name, body, octokit);
   await runInstall(name, body, octokit);
   await runBuild(name, body, octokit);
