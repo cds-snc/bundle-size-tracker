@@ -3,16 +3,11 @@ import { hasPlugin } from "./hasPlugin";
 
 const { spawnSync } = require("child_process");
 
-export const build = async ({ name, fullName, after }) => {
-  // checkout the repo
-  const tmpPath = process.env.TMP_PATH || "/tmp";
-  if (await !checkout(tmpPath, fullName, after)) {
-    throw new Error(`${fullName} failed to checkout`);
-  }
+const tmpPath = process.env.TMP_PATH || "/tmp";
+const srcPath = process.env.SRC_PATH || "";
 
+const pluginCheck = async ({ name }) => {
   // Use if your package.json is in a different location than root ex: /the-app
-  const srcPath = process.env.SRC_PATH || "";
-
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
 
   if (filePath && !(await hasPlugin(filePath))) {
@@ -20,6 +15,14 @@ export const build = async ({ name, fullName, after }) => {
   }
 
   console.log("found size plugin");
+};
+
+export const build = async ({ name, fullName, after }) => {
+  if (await !checkout(tmpPath, fullName, after)) {
+    throw new Error(`${fullName} failed to checkout`);
+  }
+
+  await pluginCheck({ name });
 
   console.log("npm install");
   const install = spawnSync("npm", ["install"], {
