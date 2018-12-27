@@ -1,6 +1,7 @@
 # Bundle size tracker
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bc41e8da2ba8bc90471/maintainability)](https://codeclimate.com/github/cds-snc/bundle-size-tracker/maintainability)
+[![Known Vulnerabilities](https://snyk.io/test/github/cds-snc/bundle-size-tracker/badge.svg)](https://snyk.io/test/github/cds-snc/bundle-size-tracker)
 
 (Work in progress, but it more or less works)
 
