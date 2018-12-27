@@ -1,3 +1,10 @@
+const reduceFiles = arr => {
+  return arr.files.reduce((o, f) => {
+    o[f.filename] = f.filesize;
+    return o;
+  }, {});
+};
+
 export const calculateDelta = (before, after) => {
   if (
     !before ||
@@ -10,15 +17,8 @@ export const calculateDelta = (before, after) => {
 
   let results = {};
 
-  const beforeFiles = before.files.reduce((o, f) => {
-    o[f.filename] = f.filesize;
-    return o;
-  }, {});
-
-  const afterFiles = after.files.reduce((o, f) => {
-    o[f.filename] = f.filesize;
-    return o;
-  }, {});
+  const beforeFiles = reduceFiles(before);
+  const afterFiles = reduceFiles(after);
 
   Object.keys(beforeFiles).forEach(f => {
     if (afterFiles[f]) {
