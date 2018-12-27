@@ -1,10 +1,9 @@
 import { checkout } from "./checkout";
 import { hasPlugin } from "./hasPlugin";
-import md5File from "md5-file/promise";
 
 const { spawnSync } = require("child_process");
 
-export const build = async ({ name, fullName, after, previousMaster = {} }) => {
+export const build = async ({ name, fullName, after }) => {
   // checkout the repo
   const tmpPath = process.env.TMP_PATH || "/tmp";
   if (await !checkout(tmpPath, fullName, after)) {
@@ -15,14 +14,6 @@ export const build = async ({ name, fullName, after, previousMaster = {} }) => {
   const srcPath = process.env.SRC_PATH || "";
 
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
-
-  const md5str = await md5File(filePath);
-
-  if (previousMaster && previousMaster.md5str === md5str) {
-    // no need to build
-    console.log("md5 matches current");
-    return true;
-  }
 
   if (filePath && !(await hasPlugin(filePath))) {
     throw new Error("size-plugin not found");
@@ -48,7 +39,4 @@ export const build = async ({ name, fullName, after, previousMaster = {} }) => {
   if (build.stderr.toString()) {
     console.log(build.stderr.toString());
   }
-
-  // Get information from build
-  return md5str;
 };

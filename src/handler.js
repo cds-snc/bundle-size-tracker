@@ -27,7 +27,7 @@ export const hello = async event => {
       before
     );
 
-    const md5str = await build({ name, fullName, after, previousMaster });
+    await build({ name, fullName, after, previousMaster });
 
     const { fileSizeData, msg } = await diff({
       name,
@@ -44,8 +44,7 @@ export const hello = async event => {
       repo: fullName,
       sha: after,
       data: fileSizeData,
-      branch: body.ref,
-      md5str
+      branch: body.ref
     });
 
     return true;
