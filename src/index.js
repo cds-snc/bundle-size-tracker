@@ -1,5 +1,6 @@
 require = require("esm")(module); // eslint-disable-line no-global-assign
 const hello = require("./handler").hello;
+const localPayload = require("./handler").localPayload;
 
 const trackSize = async (request, response) => {
   await hello(request);
@@ -7,10 +8,9 @@ const trackSize = async (request, response) => {
 };
 
 // used for local testing
-/*
+
 (async () => {
-  await hello();
+  await localPayload();
 })();
-*/
 
 module.exports.trackSize = trackSize;

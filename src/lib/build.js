@@ -1,12 +1,12 @@
 import { checkout } from "./checkout";
 import { hasPlugin } from "./hasPlugin";
-
+import { notify } from "./index";
 const { spawnSync } = require("child_process");
 
 const tmpPath = process.env.TMP_PATH || "/tmp";
 const srcPath = process.env.SRC_PATH || "";
 
-const pluginCheck = async name => {
+const pluginCheck = async (name, body, octokit) => {
   // Use if your package.json is in a different location than root ex: /the-app
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
 
@@ -14,11 +14,18 @@ const pluginCheck = async name => {
     throw new Error("size-plugin not found");
   }
 
-  console.log("found size plugin");
+  await notify(body, octokit, {
+    state: "pending",
+    description: "found size plugin"
+  });
 };
 
-const runInstall = name => {
-  console.log("npm install");
+const runInstall = async (name, body, octokit) => {
+  await notify(body, octokit, {
+    state: "pending",
+    description: "running install"
+  });
+
   const install = spawnSync("npm", ["install"], {
     cwd: `${tmpPath}/${name}${srcPath}/`
   });
@@ -28,8 +35,11 @@ const runInstall = name => {
   }
 };
 
-const runBuild = name => {
-  console.log("running build");
+const runBuild = async (name, body, octokit) => {
+  await notify(body, octokit, {
+    state: "pending",
+    description: "running build"
+  });
 
   const build = spawnSync("npm", ["run", "build"], {
     cwd: `${tmpPath}/${name}${srcPath}/`
@@ -40,12 +50,12 @@ const runBuild = name => {
   }
 };
 
-export const build = async ({ name, fullName, after }) => {
+export const build = async ({ name, fullName, after }, octokit, body) => {
   if (await !checkout(tmpPath, fullName, after)) {
     throw new Error(`${fullName} failed to checkout`);
   }
 
-  await pluginCheck(name);
-  runInstall(name);
-  runBuild(name);
+  await pluginCheck(name, body, octokit);
+  await runInstall(name, body, octokit);
+  await runBuild(name, body, octokit);
 };
