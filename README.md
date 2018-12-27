@@ -31,6 +31,7 @@ Required variables are defined in `.env.example` with defaults. They are used as
 | Name  | Purpose  | Overridable per repo   |
 |---|---|---|
 |  BUILD_CMD | The command that NPM runs when it is trying to build your bundles. The default is assumed to be `build`, but it can be anything you like.  | YES   |
+|  CHARTING_URL | The URL of your Charting cloud function to chart the data you have collected. Not required  | NO  |
 |  FIRESTORE_URL | The URL of your Firestore to keep track of your bundle size data  | NO  |
 |  GITHUB_TOKEN |  The token so the cloud function can send status updates back to your pull requests |  NO |
 |  SRC_PATH | The path to your app relative to your repo. If your app is at the root, it is blank. If you are using a monorepo, you might want to go one or more levels down.  | YES  |
