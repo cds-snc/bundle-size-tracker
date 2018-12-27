@@ -1,7 +1,7 @@
-// import { webhook } from "../__mocks__/webhook";
-// import { hello } from "../handler";
+import { webhook } from "../__mocks__/webhook";
+import { hello } from "../handler";
 
 test("returns 200 status code", async () => {
-  // const result = await hello(webhook);
-  // expect(result.statusCode).toEqual(200);
+  const result = await hello(await webhook);
+  expect(result).toEqual("Master: +66.6 kB, Branch: +66.6 kB");
 });
