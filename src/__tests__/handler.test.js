@@ -8,6 +8,18 @@ jest.mock("../lib/build", () => ({
   })
 }));
 
+jest.mock("../lib/buildSizesPath", () => ({
+  buildSizesPath: jest.fn(() => {
+    const path = require("path");
+    const filePath = path.resolve(
+      global.process.cwd(),
+      "src/__mocks__/build-sizes.json"
+    );
+
+    return filePath;
+  })
+}));
+
 test("returns 200 status code", async () => {
   const result = await hello(await webhook);
   const call = build.mock.calls[0][0];
