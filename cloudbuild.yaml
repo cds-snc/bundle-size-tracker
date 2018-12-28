@@ -3,3 +3,12 @@ steps:
     args: ["install"]
   - name: "gcr.io/cloud-builders/yarn"
     args: ["test"]
+    env:
+      [
+        "BUILD_CMD=build",
+        "CHARTING_URL=''",
+        "FIRESTORE_URL=''",
+        "GITHUB_TOKEN=''",
+        "SRC_PATH=''",
+        "TMP_PATH='/tmp'",
+      ]
