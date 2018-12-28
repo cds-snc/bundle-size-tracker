@@ -15,7 +15,7 @@ steps:
         "TMP_PATH=/tmp",
       ]
   - name: "gcr.io/cloud-builders/gcloud"
-    id: "decrypt"
+    id: "decrypt keyfile"
     args:
       - kms
       - decrypt
@@ -25,6 +25,17 @@ steps:
       - --project=bundle-size-tools
       - --keyring=deploy
       - --key=keyfile
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "decrypt .env"
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=.env.enc
+      - --plaintext-file=.env
+      - --location=global
+      - --project=bundle-size-tools
+      - --keyring=deploy
+      - --key=env
   - name: "gcr.io/cloud-builders/yarn"
     waitFor: ["decrypt"]
     entrypoint: "bash"
