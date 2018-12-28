@@ -10,5 +10,5 @@ steps:
         "FIRESTORE_URL=''",
         "GITHUB_TOKEN=abcd",
         "SRC_PATH=''",
-        "TMP_PATH='/tmp'",
+        "TMP_PATH=/tmp",
       ]
