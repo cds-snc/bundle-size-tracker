@@ -48,7 +48,53 @@ To analyze your package sizes you will need to install the `size-plugin` as desc
 
 #### Size plugin 
 
-Comign soon.
+##### Install
+
+```bash
+yarn add cds-size-plugin
+```
+
+##### RazzleJS
+Add to your WebPack config
+
+```javascript 
+const path = require("path");
+const SizePlugin = require("cds-size-plugin");
+
+module.exports = ({ mode = "production" }) => {
+  return {
+    entry: "./src/client.js",
+    mode: mode,
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js"
+    },
+    plugins: [
+      new SizePlugin()
+    ],
+    ...
+  };
+};
+```
+
+
+##### RazzleJS
+
+```javascript 
+//razzle.config.js
+
+module.exports = {
+  modify: (config, { target, dev }, webpack) => {
+    const SizePlugin = require("cds-size-plugin");
+    config.plugins.push(
+      new SizePlugin()
+    );
+    return config;
+  }
+};
+
+```
+
 
 ## Environment variables
 
