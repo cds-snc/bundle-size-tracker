@@ -5,7 +5,7 @@ provider:
   runtime: nodejs8
   project: bundle-size-tools
   credentials: ~/.gcloud/keyfile.json
-  memorySize: 2048
+  memorySize: 1024
   timeout: 180s
 
 plugins:
