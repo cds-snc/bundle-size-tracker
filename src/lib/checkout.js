@@ -1,6 +1,6 @@
 const { spawnSync } = require("child_process");
 
-const cleanup = (dir, name) => {
+export const cleanup = (dir, name) => {
   const cleanup = spawnSync("rm", ["-rf", name], {
     cwd: dir
   });

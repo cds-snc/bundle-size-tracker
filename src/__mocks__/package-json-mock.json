@@ -1,0 +1,15 @@
+{
+  "name": "appname",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index"
+  },
+  "dependencies": {
+    "@babel/core": "^7.2.0"
+  },
+  "devDependencies": {
+    "cds-size-plugin": "1.1.2"
+  }
+}

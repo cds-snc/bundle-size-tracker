@@ -3,8 +3,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bc41e8da2ba8bc90471/maintainability)](https://codeclimate.com/github/cds-snc/bundle-size-tracker/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/cds-snc/bundle-size-tracker/badge.svg)](https://snyk.io/test/github/cds-snc/bundle-size-tracker)
 
-(Work in progress, but it more or less works)
-
 The purpose of this cloud function is to record changes in your bundle size over time.
 
 ## What does that mean?
@@ -17,12 +15,40 @@ Assume you are adding a package to your bundle, lets say [https://momentjs.com](
 
 Bundles sizes are important when you design services that need to be zippy on 3G networks.
 
+## Table of Contents
+- [Requirements](#requirements)
+- [Installing](#installing)
+- [Environment variables](#environment-variables)
+- [Information flow](#information-flow)
+- [Why the restrictions?](#why-the-restrictions)
+
 ## Requirements
 
 - Webpack
 - [Webpack Size-Plugin](https://github.com/GoogleChromeLabs/size-plugin) Current code uses a fork
 - Compatibility with Node 8
 - NPM
+
+## Installing
+
+#### Cloud function
+We use the [Serverless framework](https://serverless.com/) to scaffold our functions. The idea is to remain platform agnostic but it quickly turned out that Google Cloud functions had features that were easier to work with than AWS. As a result, to install the code on a Google Cloud function you need to follow the instruction [here](https://serverless.com/framework/docs/providers/google/guide/credentials/) to set up the correct credentials. Be sure to install the Serverless framework as well by following their instructions.
+
+Modify the `serverless.yml` file by changing the `service` value to the name of your Google Cloud Project as well as the path to the credentials JSON file you set up using the Serverless instructions above under the `credentials` key.
+
+To store your data, you also need to create a [Google Firestore](https://cloud.google.com/firestore/) project. The URL for that project needs to populate the `FIRESTORE_URL` environment variable.
+
+You also need to generate a GitHub token to write the statuses back to you repos. Read more about tokens [here](https://blog.github.com/2013-05-16-personal-api-tokens/). Use this token in the `GITHUB_TOKEN` environment variable.
+
+Save the environment information in a `.env` file. Consult the `.env.example` and the [table below](#environment-variables) for more information.
+
+Install all the required dependencies using your preferred node package manager and then just run `serverless deploy`. Your cloud function is now deployed. It will return the URL of the cloud function that you can then use as a webhook. Read more about GitHub Webhooks [here](#ttps://help.github.com/articles/about-webhooks/).
+
+To analyze your package sizes you will need to install the `size-plugin` as described below.
+
+#### Size plugin 
+
+Comign soon.
 
 ## Environment variables
 
@@ -41,7 +67,7 @@ Required variables are defined in `.env.example` with defaults. They are used as
 
 You can create a `.bundle-size-tracker-config` file in the root of your repo. The cloud function will respect the environment variables defined in that over the ones that have been configured for itself. This is useful if, for example, you are using the same cloud function on ten different repos, but ones does not use a standard build command or is a monorepo. An example is here: https://github.com/cds-snc/bundle-size-tracker-demo-app/blob/master/.bundle-size-tracker-config
  
-## Architecture
+## Information flow
 
 The flow of information is straightforward:
 
