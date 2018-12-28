@@ -4,7 +4,7 @@ provider:
   name: google
   runtime: nodejs8
   project: bundle-size-tools
-  credentials: ~/.gcloud/keyfile.json
+  credentials: ./keyfile.json
   memorySize: 1024
   timeout: 180s
 
