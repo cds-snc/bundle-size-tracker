@@ -54,8 +54,7 @@ To analyze your package sizes you will need to install the `size-plugin` as desc
 yarn add cds-size-plugin
 ```
 
-##### RazzleJS
-Add to your WebPack config
+##### WebPack config
 
 ```javascript 
 const path = require("path");
@@ -76,7 +75,6 @@ module.exports = ({ mode = "production" }) => {
   };
 };
 ```
-
 
 ##### RazzleJS
 
