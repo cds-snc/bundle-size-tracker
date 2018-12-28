@@ -37,7 +37,7 @@ steps:
       - --keyring=deploy
       - --key=env
   - name: "gcr.io/cloud-builders/yarn"
-    waitFor: ["decrypt"]
+    waitFor: ["decrypt keyfile", "decrypt .env"]
     entrypoint: "bash"
     args:
       - "-c"
