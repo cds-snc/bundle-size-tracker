@@ -8,7 +8,7 @@ steps:
         "BUILD_CMD=build",
         "CHARTING_URL=''",
         "FIRESTORE_URL=''",
-        "GITHUB_TOKEN=''",
+        "GITHUB_TOKEN=abcd",
         "SRC_PATH=''",
         "TMP_PATH='/tmp'",
       ]
