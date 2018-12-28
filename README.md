@@ -46,7 +46,7 @@ Install all the required dependencies using your preferred node package manager 
 
 To analyze your package sizes you will need to install the `size-plugin` as described below.
 
-#### Size plugin 
+#### WebPack Size plugin 
 
 ##### Install
 
