@@ -14,18 +14,14 @@ describe("detects size plugin in package.json", () => {
   });
 
   it("returns true when the plugin exists", async () => {
-    try {
-      const results = await hasPlugin(filePath("package-json-mock.json"));
-      expect(results).toEqual(true);
-    } catch (e) {}
+    const results = await hasPlugin(filePath("package-json-mock.json"));
+    expect(results).toEqual(true);
   });
 
   it("returns false when plugin isn't found", async () => {
-    try {
-      const results = await hasPlugin(
-        filePath("package-json-mock-no-plugin.json")
-      );
-      expect(results).toEqual(false);
-    } catch (e) {}
+    const results = await hasPlugin(
+      filePath("package-json-mock-no-plugin.json")
+    );
+    expect(results).toEqual(false);
   });
 });
