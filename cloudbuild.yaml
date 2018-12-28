@@ -42,4 +42,4 @@ steps:
     args:
       - "-c"
       - |
-        if [[ "$BRANCH_NAME" != "master" ]]; then yarn global add serverless && serverless deploy; else exit 0; fi
+        if [[ "$BRANCH_NAME" == "master" ]]; then yarn global add serverless && serverless deploy; else exit 0; fi
