@@ -1,7 +1,9 @@
 steps:
   - name: "gcr.io/cloud-builders/yarn"
+    id: "install"
     args: ["install"]
   - name: "gcr.io/cloud-builders/yarn"
+    id: "test"
     args: ["test"]
     env:
       [
@@ -13,7 +15,7 @@ steps:
         "TMP_PATH=/tmp",
       ]
   - name: "gcr.io/cloud-builders/gcloud"
-    id: decrypt
+    id: "decrypt"
     args:
       - kms
       - decrypt
@@ -29,4 +31,4 @@ steps:
     args:
       - "-c"
       - |
-        if [[ "$BRANCH_NAME" != "master" ]]; then yarn install serverless && serverless deploy; else exit 0; fi
+        if [[ "$BRANCH_NAME" != "master" ]]; then yarn add serverless && serverless deploy; else exit 0; fi
