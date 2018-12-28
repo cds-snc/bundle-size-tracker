@@ -58,8 +58,6 @@ const runBuild = async (name, body, octokit) => {
 };
 
 export const build = async ({ name, fullName, after }, octokit, body) => {
-  if (process.env.NODE_ENV === "test") return;
-
   if (await !checkout(tmpPath, fullName, after)) {
     throw new Error(`${fullName} failed to checkout`);
   }
