@@ -11,3 +11,4 @@ jspm_packages
 .DS_Store
 
 .env
+keyfile.json

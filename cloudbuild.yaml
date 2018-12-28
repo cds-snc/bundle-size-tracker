@@ -12,3 +12,21 @@ steps:
         "SRC_PATH=''",
         "TMP_PATH=/tmp",
       ]
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: decrypt
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=keyfile.json.enc
+      - --plaintext-file=keyfile.json
+      - --location=global
+      - --project=bundle-size-tools
+      - --keyring=deploy
+      - --key=keyfile
+  - name: "gcr.io/cloud-builders/yarn"
+    waitFor: ["decrypt"]
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        if [[ "$BRANCH_NAME" != "master" ]]; then yarn install serverless && serverless deploy; else exit 0; fi
