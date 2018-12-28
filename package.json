@@ -28,7 +28,6 @@
     "esm": "^3.0.84",
     "firebase-admin": "^6.4.0",
     "firebase-functions": "^2.1.0",
-    "md5-file": "^4.0.0",
     "pretty-bytes": "^5.1.0",
     "serverless-google-cloudfunctions": "^2.3.2"
   },
