@@ -7,7 +7,7 @@ The purpose of this cloud function is to record changes in your bundle size over
 
 ## What does that mean?
 
-Assume you are adding a package to your bundle, lets say [https://momentjs.com](https://momentjs.com), which is a great library. You open your PR and the function tells you that by adding moment.js you are now adding an additional 66 kb to your bundle size. Upon reflection, you realize you only need one feature from moment.js, so you find an alternative instead, [https://date-fns.org/](https://date-fns.org/) and you put that in. Your next commit shows an increase of 1.03 kB vs. the current master and a reduction of -65.6 kB vs. your previous commit with moment.
+Assume you are adding a package to your bundle, lets say [https://momentjs.com](https://momentjs.com), which is a great library. You open your PR and the function tells you that by adding moment.js you are now adding an additional 66 kB to your bundle size. Upon reflection, you realize you only need one feature from moment.js, so you find an alternative instead, [https://date-fns.org/](https://date-fns.org/) and you put that in. Your next commit shows an increase of 1.03 kB vs. the current master and a reduction of -65.6 kB vs. your previous commit with moment.
 
 ![Showing Diff](https://user-images.githubusercontent.com/867334/50255939-0e4d5a80-03c2-11e9-82dc-2de9c9dff87c.png)
 
