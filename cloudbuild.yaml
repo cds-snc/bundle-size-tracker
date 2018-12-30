@@ -1,0 +1,45 @@
+steps:
+  - name: "gcr.io/cloud-builders/yarn"
+    id: "install"
+    args: ["install"]
+  - name: "gcr.io/cloud-builders/yarn"
+    id: "test"
+    args: ["test"]
+    env:
+      [
+        "BUILD_CMD=build",
+        "CHARTING_URL=''",
+        "FIRESTORE_URL=''",
+        "GITHUB_TOKEN=abcd",
+        "SRC_PATH=''",
+        "TMP_PATH=/tmp",
+      ]
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "decrypt keyfile"
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=keyfile.json.enc
+      - --plaintext-file=keyfile.json
+      - --location=global
+      - --project=bundle-size-tools
+      - --keyring=deploy
+      - --key=keyfile
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "decrypt .env"
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=.env.enc
+      - --plaintext-file=.env
+      - --location=global
+      - --project=bundle-size-tools
+      - --keyring=deploy
+      - --key=env
+  - name: "gcr.io/cloud-builders/yarn"
+    waitFor: ["decrypt keyfile", "decrypt .env"]
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        if [[ "$BRANCH_NAME" == "master" ]]; then yarn global add serverless && serverless deploy; else exit 0; fi
