@@ -8,6 +8,12 @@ jest.mock("../lib/build", () => ({
   })
 }));
 
+jest.mock("../lib/notify", () => ({
+  notify: jest.fn((event, octokit, status) => {
+    return true;
+  })
+}));
+
 jest.mock("../lib/buildSizesPath", () => ({
   buildSizesPath: jest.fn(() => {
     const path = require("path");
