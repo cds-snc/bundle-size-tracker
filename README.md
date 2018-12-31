@@ -51,7 +51,7 @@ To analyze your package sizes you will need to install the `size-plugin` as desc
 ##### Install
 
 ```bash
-yarn add cds-size-plugin
+yarn add --dev cds-size-plugin
 ```
 
 ##### WebPack config
