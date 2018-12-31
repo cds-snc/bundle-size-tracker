@@ -93,6 +93,22 @@ module.exports = {
 
 ```
 
+#### next.js
+```javascript 
+//next.config.js
+
+module.exports = {
+  webpack: function (config, { isServer }) {
+    const SizePlugin = require("cds-size-plugin");
+    config.plugins.push(
+      new SizePlugin()
+    );
+    return config;
+  }
+};
+
+```
+
 
 ## Environment variables
 
