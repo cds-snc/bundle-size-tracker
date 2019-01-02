@@ -137,7 +137,7 @@ The flow of information is straightforward:
 4. Cloud function checks if the repo contains the required webpack plugin
 5. Cloud function notifies GitHub it is checking the bundle size
 6. Cloud function looks for historic information on the repo and branch in a database
-7. Cloud function install the packages in the repo and runs the build to determine bundle size
+7. Cloud function installs the packages in the repo and runs the build to determine bundle size
 8. Cloud function records the new results in the database
 9. Cloud function calculates the change delta and posts it back to GitHub
 
