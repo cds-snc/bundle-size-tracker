@@ -34,11 +34,11 @@ Bundles sizes are important when you design services that need to be zippy on 3G
 #### Cloud function
 We use the [Serverless framework](https://serverless.com/) to scaffold our functions. The idea is to remain platform agnostic but it quickly turned out that Google Cloud functions had features that were easier to work with than AWS. As a result, to install the code on a Google Cloud function you need to follow the instruction [here](https://serverless.com/framework/docs/providers/google/guide/credentials/) to set up the correct credentials. Be sure to install the Serverless framework as well by following their instructions.
 
-Modify the `serverless.yml` file by changing the `service` value to the name of your Google Cloud Project as well as the path to the credentials JSON file you set up using the Serverless instructions above under the `credentials` key.
+Modify the `serverless.yml` file by changing the `service` and `project` values to the name of your Google Cloud Project as well as the path to the credentials JSON file you set up using the Serverless instructions above under the `credentials` key.
 
 To store your data, you also need to create a [Google Firestore](https://cloud.google.com/firestore/) project. The URL for that project needs to populate the `FIRESTORE_URL` environment variable.
 
-You also need to generate a GitHub token to write the statuses back to you repos. Read more about tokens [here](https://blog.github.com/2013-05-16-personal-api-tokens/). Use this token in the `GITHUB_TOKEN` environment variable.
+You also need to generate a GitHub token to write the statuses back to you repos. Read more about tokens [here](https://blog.github.com/2013-05-16-personal-api-tokens/). You only need the basic repo permissions enabled. Use this token in the `GITHUB_TOKEN` environment variable.
 
 Save the environment information in a `.env` file. Consult the `.env.example` and the [table below](#environment-variables) for more information.
 
