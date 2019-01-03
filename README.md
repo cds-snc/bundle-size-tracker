@@ -161,4 +161,4 @@ Currently the cloud function is deployed using Google Cloud functions because th
 
 ## Hey you! Yes you!
 
-You seem like you might be interested in what we do, find you more here: [https://digital.canada.ca/work-with-us/](https://digital.canada.ca/work-with-us/)
+You seem like you might be interested in what we do, find out more here: [https://digital.canada.ca/work-with-us/](https://digital.canada.ca/work-with-us/)
