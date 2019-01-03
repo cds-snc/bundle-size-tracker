@@ -158,3 +158,7 @@ Currently the cloud function is deployed using Google Cloud functions because th
 - Webpack - Webpack is required for the bundle size plugin
 - Compatibility with Node 8 - This is the runtime on Google Cloud functions
 - NPM - This is the package manager that is installed on Google Cloud functions
+
+## Hey you! Yes you!
+
+You seem like you might be interested in what we do, find you more here: [https://digital.canada.ca/work-with-us/](https://digital.canada.ca/work-with-us/)
