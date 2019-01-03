@@ -5,8 +5,8 @@ provider:
   runtime: nodejs8
   project: bundle-size-tools
   credentials: ./keyfile.json
-  memorySize: 1024
-  timeout: 180s
+  memorySize: 2048
+  timeout: 240s
 
 plugins:
   - serverless-google-cloudfunctions
