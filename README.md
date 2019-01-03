@@ -38,6 +38,12 @@ Modify the `serverless.yml` file by changing the `service` and `project` values 
 
 To store your data, you also need to create a [Google Firestore](https://cloud.google.com/firestore/) project. The URL for that project needs to populate the `FIRESTORE_URL` environment variable.
 
+Once you have your firestore created you need to create an index for the data to work properly. You can do that by visiting the following URL:
+
+`https://console.firebase.google.com/project/PROJECT_NAME/database/firestore/indexes?create_index=EgxidW5kbGVfc2l6ZXMaCAoEcmVwbxACGg0KCXRpbWVzdGFtcBADGgwKCF9fbmFtZV9fEAM` 
+
+where `PROJECT_NAME` is the name of your Google project. The cloud function **will fail** if you do not do this.
+
 You also need to generate a GitHub token to write the statuses back to you repos. Read more about tokens [here](https://blog.github.com/2013-05-16-personal-api-tokens/). You only need the basic repo permissions enabled. Use this token in the `GITHUB_TOKEN` environment variable.
 
 Save the environment information in a `.env` file. Consult the `.env.example` and the [table below](#environment-variables) for more information.
