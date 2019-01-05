@@ -9,11 +9,11 @@ The purpose of this cloud function is to record changes in your bundle size over
 
 Assume you are adding a package to your bundle, lets say [https://momentjs.com](https://momentjs.com), which is a great library. You open your PR and the function tells you that by adding moment.js you are now adding an additional 66 kB to your bundle size. Upon reflection, you realize you only need one feature from moment.js, so you find an alternative instead, [https://date-fns.org/](https://date-fns.org/) and you put that in. Your next commit shows an increase of 1.03 kB vs. the current master and a reduction of -65.6 kB vs. your previous commit with moment.
 
-**Pull Request - bundle tracker runs and saves the size data**
+**Pull Request - tracker runs and saves the data:**
 
 <img src="https://user-images.githubusercontent.com/62242/50724546-29f07a80-10bd-11e9-8fff-c07637d053fd.gif" width="600">
 
-**Result**
+**Result:**
 
 <img src="https://user-images.githubusercontent.com/62242/50724545-278e2080-10bd-11e9-81f5-0c3fb20210d6.png" width="600">
 
