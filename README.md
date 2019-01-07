@@ -44,7 +44,7 @@ We use the [Serverless framework](https://serverless.com/) to scaffold our funct
 
 Modify the `serverless.yml` file by changing the `service` and `project` values to the name of your Google Cloud Project as well as the path to the credentials JSON file you set up using the Serverless instructions above under the `credentials` key.
 
-To store your data, you also need to create a [Google Firestore](https://cloud.google.com/firestore/) project. The URL for that project needs to populate the `FIRESTORE_URL` environment variable.
+To store your data, you also need to create a [Google Firestore](https://console.firebase.google.com) project. The URL for that project needs to populate the `FIRESTORE_URL` environment variable.
 
 Once you have your firestore created you need to create an index for the data to work properly. You can do that by visiting the following URL:
 
