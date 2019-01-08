@@ -10,14 +10,20 @@ const getData = async filePath => {
   return JSON.parse(packageData);
 };
 
+const pluginName = "cds-size-plugin";
+
 export const hasPlugin = async filePath => {
   const packageData = await getData(filePath);
   let exists = false;
-  if (
-    packageData &&
-    packageData.devDependencies &&
-    packageData.devDependencies["cds-size-plugin"]
-  ) {
+
+  if (!packageData) return exists;
+
+  let hasDevDep =
+    packageData.devDependencies && packageData.devDependencies[pluginName];
+
+  let hasDep = packageData.dependencies && packageData.dependencies[pluginName];
+
+  if (hasDevDep || hasDep) {
     exists = true;
   }
   return exists;
