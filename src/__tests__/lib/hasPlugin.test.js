@@ -18,6 +18,11 @@ describe("detects size plugin in package.json", () => {
     expect(results).toEqual(true);
   });
 
+  it("returns true when the plugin exists as dep", async () => {
+    const results = await hasPlugin(filePath("package-json-asdep-mock.json"));
+    expect(results).toEqual(true);
+  });
+
   it("returns false when plugin isn't found", async () => {
     const results = await hasPlugin(
       filePath("package-json-mock-no-plugin.json")
