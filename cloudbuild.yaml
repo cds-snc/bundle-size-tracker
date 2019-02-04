@@ -36,8 +36,19 @@ steps:
       - --project=bundle-size-tools
       - --keyring=deploy
       - --key=env
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "decrypt github"
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=github.pem.enc
+      - --plaintext-file=github.pem
+      - --location=global
+      - --project=bundle-size-tools
+      - --keyring=github
+      - --key=env
   - name: "gcr.io/cloud-builders/yarn"
-    waitFor: ["decrypt keyfile", "decrypt .env"]
+    waitFor: ["decrypt keyfile", "decrypt .env", "decrypt github"]
     entrypoint: "bash"
     args:
       - "-c"

@@ -12,3 +12,4 @@ jspm_packages
 
 .env
 keyfile.json
+github.pem

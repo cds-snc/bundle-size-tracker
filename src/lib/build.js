@@ -11,7 +11,7 @@ const getFullPath = name => {
   return `${tmpPath}/${name}${srcPath}/`;
 };
 
-const pluginCheck = async (name, body, octokit) => {
+const pluginCheck = async (name, body) => {
   const srcPath = process.env.SRC_PATH || "";
   const filePath = `${tmpPath}/${name}${srcPath}/package.json`;
 
@@ -19,14 +19,14 @@ const pluginCheck = async (name, body, octokit) => {
     throw new Error("size-plugin not found");
   }
 
-  await notify(body, octokit, {
+  await notify(body, {
     state: "pending",
     description: "found size plugin"
   });
 };
 
-const runInstall = async (name, body, octokit) => {
-  await notify(body, octokit, {
+const runInstall = async (name, body) => {
+  await notify(body, {
     state: "pending",
     description: "running install"
   });
@@ -40,8 +40,8 @@ const runInstall = async (name, body, octokit) => {
   }
 };
 
-const runBuild = async (name, body, octokit) => {
-  await notify(body, octokit, {
+const runBuild = async (name, body) => {
+  await notify(body, {
     state: "pending",
     description: "running build"
   });
@@ -57,13 +57,13 @@ const runBuild = async (name, body, octokit) => {
   }
 };
 
-export const build = async ({ name, fullName, after }, octokit, body) => {
+export const build = async ({ name, fullName, after }, body) => {
   if (await !checkout(tmpPath, fullName, after)) {
     throw new Error(`${fullName} failed to checkout`);
   }
 
   await loadLocalConfig(`${tmpPath}/${name}/.bundle-size-tracker-config`);
-  await pluginCheck(name, body, octokit);
-  await runInstall(name, body, octokit);
-  await runBuild(name, body, octokit);
+  await pluginCheck(name, body);
+  await runInstall(name, body);
+  await runBuild(name, body);
 };
