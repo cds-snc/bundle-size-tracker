@@ -45,8 +45,8 @@ steps:
       - --plaintext-file=github.pem
       - --location=global
       - --project=bundle-size-tools
-      - --keyring=github
-      - --key=env
+      - --keyring=deploy
+      - --key=github
   - name: "gcr.io/cloud-builders/yarn"
     waitFor: ["decrypt keyfile", "decrypt .env", "decrypt github"]
     entrypoint: "bash"
