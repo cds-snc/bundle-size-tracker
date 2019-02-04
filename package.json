@@ -23,6 +23,7 @@
     }
   },
   "dependencies": {
+    "@octokit/app": "^2.2.0",
     "@octokit/rest": "^16.9.0",
     "dotenv-safe": "^6.1.0",
     "esm": "^3.1.0",
