@@ -1,5 +1,5 @@
 /* https://octokit.github.io/rest.js/ */
-require("dotenv-safe").config({ allowEmptyValues: true });
+import { authenticate } from "./githubAuth";
 
 const validate = event => {
   if (
@@ -17,16 +17,11 @@ const validate = event => {
 
 export const notify = async (
   event,
-  octokit,
   status = { state: "pending", description: "Checking bundle size" }
 ) => {
   if (!validate(event)) return false;
 
-  octokit.authenticate({
-    type: "token",
-    token: process.env.GITHUB_TOKEN
-  });
-
+  const client = await authenticate(event.installation.id);
   const repoOwner = event.repository.owner.name;
   const repoName = event.repository.name;
 
@@ -47,7 +42,7 @@ export const notify = async (
     status
   );
 
-  const result = await octokit.repos.createStatus(statusObj);
+  const result = await client.repos.createStatus(statusObj);
 
   return result;
 };

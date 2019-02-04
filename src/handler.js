@@ -1,5 +1,5 @@
 "use strict";
-import octokit, {
+import {
   notify,
   validate,
   build,
@@ -18,7 +18,7 @@ export const localPayload = async () => {
 const init = event => {
   const body = validate(event);
 
-  notify(body, octokit, {
+  notify(body, {
     state: "pending",
     description: "Checking bundle size"
   });
@@ -40,7 +40,7 @@ const reportDiff = async ({
     previousMaster
   });
 
-  notify(body, octokit, {
+  notify(body, {
     state: "success",
     description: msg
   });
@@ -49,6 +49,7 @@ const reportDiff = async ({
     repo: fullName,
     sha: after,
     data: fileSizeData,
+
     branch: body.ref
   });
 
@@ -70,7 +71,7 @@ export const hello = async event => {
       before
     );
 
-    await build({ name, fullName, after, previousMaster }, octokit, body);
+    await build({ name, fullName, after, previousMaster }, body);
 
     const msg = await reportDiff({
       fullName,
@@ -84,7 +85,7 @@ export const hello = async event => {
   } catch (e) {
     console.log(e.message);
     const body = validate(event);
-    await notify(body, octokit, { state: "error", description: e.message });
+    await notify(body, { state: "error", description: e.message });
     return false;
   }
 };
