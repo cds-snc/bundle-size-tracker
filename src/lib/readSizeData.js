@@ -5,7 +5,7 @@ import { cleanup } from "./checkout";
 const tmpPath = process.env.TMP_PATH || "/tmp";
 
 export const readFileSizeData = async name => {
-  const packageData = await getFile(buildSizesPath(name));
+  const packageData = await getFile(await buildSizesPath(name));
   const result = JSON.parse(packageData);
   console.log("build-sizes.json", result);
   cleanup(tmpPath, name);
