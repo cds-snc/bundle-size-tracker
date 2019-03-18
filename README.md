@@ -21,7 +21,7 @@ Assume you are adding a package to your bundle, lets say [https://momentjs.com](
 
 ## Why is it important?
 
-Bundles sizes are important when you design services that need to be zippy on 3G networks.
+Bundle sizes are important when you design services that need to be zippy on 3G networks.
 
 ## Table of Contents
 - [Requirements](#requirements)
@@ -40,7 +40,7 @@ Bundles sizes are important when you design services that need to be zippy on 3G
 ## Installing
 
 #### Cloud function
-We use the [Serverless framework](https://serverless.com/) to scaffold our functions. The idea is to remain platform agnostic but it quickly turned out that Google Cloud functions had features that were easier to work with than AWS. As a result, to install the code on a Google Cloud function you need to follow the instruction [here](https://serverless.com/framework/docs/providers/google/guide/credentials/) to set up the correct credentials. Be sure to install the Serverless framework as well by following their instructions.
+We use the [Serverless framework](https://serverless.com/) to scaffold our functions. The idea is to remain platform agnostic but it quickly turned out that Google Cloud functions had features that were easier to work with than AWS. As a result, to install the code on a Google Cloud function you need to follow the instructions [here](https://serverless.com/framework/docs/providers/google/guide/credentials/) to set up the correct credentials. Be sure to install the Serverless framework as well by following their instructions.
 
 Modify the `serverless.yml` file by changing the `service` and `project` values to the name of your Google Cloud Project as well as the path to the credentials JSON file you set up using the Serverless instructions above under the `credentials` key.
 
@@ -131,7 +131,7 @@ Required variables are defined in `.env.example` with defaults. They are used as
 | Name  | Purpose  | Overridable per repo   |
 |---|---|---|
 |  BUILD_CMD | The command that NPM runs when it is trying to build your bundles. The default is assumed to be `build`, but it can be anything you like.  | YES   |
-|  CHARTING_URL | The URL of your Charting cloud function to chart the data you have collected. Not required  | NO  |
+|  CHARTING_URL | The URL of your Charting cloud function to chart the data you have collected. Not required.  | NO  |
 |  FIRESTORE_URL | The URL of your Firestore to keep track of your bundle size data  | NO  |
 |  GITHUB_TOKEN |  The token so the cloud function can send status updates back to your pull requests |  NO |
 |  SRC_PATH | The path to your app relative to your repo. If your app is at the root, it is blank. If you are using a monorepo, you might want to go one or more levels down.  | YES  |
@@ -139,7 +139,7 @@ Required variables are defined in `.env.example` with defaults. They are used as
 
 #### How does overriding by repo work?
 
-You can create a `.bundle-size-tracker-config` file in the root of your repo. The cloud function will respect the environment variables defined in that over the ones that have been configured for itself. This is useful if, for example, you are using the same cloud function on ten different repos, but ones does not use a standard build command or is a monorepo. An example is here: https://github.com/cds-snc/bundle-size-tracker-demo-app/blob/master/.bundle-size-tracker-config
+You can create a `.bundle-size-tracker-config` file in the root of your repo. The cloud function will respect the environment variables defined in that over the ones that have been configured for itself. This is useful if, for example, you are using the same cloud function on ten different repos, but one does not use a standard build command or is a monorepo. An example is here: https://github.com/cds-snc/bundle-size-tracker-demo-app/blob/master/.bundle-size-tracker-config
  
 ## Information flow
 
