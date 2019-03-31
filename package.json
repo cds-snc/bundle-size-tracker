@@ -23,19 +23,19 @@
     }
   },
   "dependencies": {
-    "@octokit/app": "^2.2.0",
+    "@octokit/app": "^2.2.2",
     "@octokit/rest": "^16.9.0",
     "dotenv-safe": "^6.1.0",
-    "esm": "^3.1.0",
+    "esm": "^3.2.22",
     "firebase-admin": "^6.4.0",
-    "firebase-functions": "^2.1.0",
+    "firebase-functions": "^2.2.1",
     "pretty-bytes": "^5.1.0",
     "serverless-google-cloudfunctions": "^2.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "babel-core": "7.0.0-bridge.0",
     "@babel/preset-env": "^7.2.3",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "body-parser": "^1.18.3",
@@ -49,10 +49,10 @@
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.3.1",
     "jest": "^23.6.0",
-    "lint-staged": "^8.1.0",
+    "lint-staged": "^8.1.5",
     "minimist": "^1.2.0",
     "mock-cloud-firestore": "^0.9.0",
     "nock": "^10.0.6",
-    "prettier": "^1.15.3"
+    "prettier": "^1.16.4"
   }
 }

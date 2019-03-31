@@ -732,26 +732,13 @@
     lodash "^4.17.5"
     protobufjs "^6.8.6"
 
-"@iamstarkov/listr-update-renderer@0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@iamstarkov/listr-update-renderer/-/listr-update-renderer-0.4.1.tgz#d7c48092a2dcf90fd672b6c8b458649cb350c77e"
-  integrity sha512-IJyxQWsYDEkf8C8QthBn5N8tIUR9V9je6j3sMIpAkonaadjbvxmRC6RAhpa3RKxndhNnU2M6iNbtJwd7usQYIA==
-  dependencies:
-    chalk "^1.1.3"
-    cli-truncate "^0.2.1"
-    elegant-spinner "^1.0.1"
-    figures "^1.7.0"
-    indent-string "^3.0.0"
-    log-symbols "^1.0.2"
-    log-update "^2.3.0"
-    strip-ansi "^3.0.1"
-
-"@octokit/app@^2.2.0":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@octokit/app/-/app-2.2.1.tgz#69a0da2442fe1ba27da3860d9f250f39514fe49b"
-  integrity sha512-bngDco6DrPMn65mdcf+RhX8bdImrDaY1V/5VZFwYuYhZHRDFDecWSR6cusHwH7G2xjfXhNdIBxbb3PJPoRJxUw==
+"@octokit/app@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@octokit/app/-/app-2.2.2.tgz#a1b8248f64159eeccbe4000d888fdae4163c4ad8"
+  integrity sha512-nUwS8jW107ROGuI0Tq4Ga+Zno6CovwaS+Oen6BOKJmoFMLqqB3oXeGZ6InkidtdmUNiYhMtNq2lydb0WVLT8Zg==
   dependencies:
     "@octokit/request" "^2.1.2"
+    "@types/lru-cache" "^5.1.0"
     jsonwebtoken "^8.3.0"
     lru-cache "^5.1.1"
 
@@ -925,6 +912,11 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
   integrity sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==
+
+"@types/lru-cache@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/lru-cache/-/lru-cache-5.1.0.tgz#57f228f2b80c046b4a1bd5cac031f81f207f4f03"
+  integrity sha512-RaE0B+14ToE4l6UqdarKPnXwVDuigfFv+5j9Dze/Nqr23yyuqdNvzcZi3xB+3Agvi5R4EOgAksfv3lXX4vBt9w==
 
 "@types/mime@*":
   version "2.0.0"
@@ -2472,10 +2464,10 @@ eslint@^5.12.0:
     table "^5.0.2"
     text-table "^0.2.0"
 
-esm@^3.1.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.0.tgz#089011156cf817ccdae38c877cbe03301df04136"
-  integrity sha512-yK4IiHmmInOk9q4xbJXdUfPV0ju7GbRCbhtpe5/gH7nRiD6RAb12Ix7zfsqQkDL5WERwzFlq/eT6zTXDWwIk+w==
+esm@^3.2.22:
+  version "3.2.22"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.22.tgz#5062c2e22fee3ccfee4e8f20da768330da90d6e3"
+  integrity sha512-z8YG7U44L82j1XrdEJcqZOLUnjxco8pO453gKOlaMD1/md1n/5QrscAmYG+oKUspsmDLuBFZrpbxI6aQ67yRxA==
 
 espree@^5.0.0:
   version "5.0.0"
@@ -2852,10 +2844,10 @@ firebase-admin@^6.4.0:
     "@google-cloud/storage" "^1.6.0"
     "@types/google-cloud__storage" "^1.7.1"
 
-firebase-functions@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-2.2.0.tgz#499d4703f97b15cd59420b0fb4f0e5e5014484cc"
-  integrity sha512-83rJvXreTH98q1XEEUZ4G9nFZ0sUVaqkxPC+v25L9FuXsWgAFpW7G28K0MJ9DBPNo/RaeNNw0zvZVtDw11CEbQ==
+firebase-functions@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-2.2.1.tgz#f5b6de47860819eb8d41b969c8d6d2c1000dc422"
+  integrity sha512-k2FA3j8XFGPOGBjgKoBUQQc4Hfqe4PdcG8hfS/RHireW1vQhkplx8XhzaknJNqsBCIoglMFuUsXpuAh9pbhtxw==
   dependencies:
     "@types/cors" "^2.8.1"
     "@types/express" "^4.11.1"
@@ -4472,12 +4464,11 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lint-staged@^8.1.0:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-8.1.1.tgz#4a9837c75ea23d1ea81f2c5b5f334153cc7f7932"
-  integrity sha512-6C9tmmCedjDYQMzHydT5mXRtmEgpGUQDoIl+Ser8cfI/n9grsRUsuG2jd1BWqGf62OV+BV+6n/Drt82uYTCgJg==
+lint-staged@^8.1.5:
+  version "8.1.5"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-8.1.5.tgz#372476fe1a58b8834eb562ed4c99126bd60bdd79"
+  integrity sha512-e5ZavfnSLcBJE1BTzRTqw6ly8OkqVyO3GL2M6teSmTBYQ/2BuueD5GIt2RPsP31u/vjKdexUyDCxSyK75q4BDA==
   dependencies:
-    "@iamstarkov/listr-update-renderer" "0.4.1"
     chalk "^2.3.1"
     commander "^2.14.1"
     cosmiconfig "^5.0.2"
@@ -4490,7 +4481,8 @@ lint-staged@^8.1.0:
     is-glob "^4.0.0"
     is-windows "^1.0.2"
     listr "^0.14.2"
-    lodash "^4.17.5"
+    listr-update-renderer "^0.5.0"
+    lodash "^4.17.11"
     log-symbols "^2.2.0"
     micromatch "^3.1.8"
     npm-which "^3.0.1"
@@ -5582,10 +5574,10 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
 
-prettier@^1.15.3:
-  version "1.16.3"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.3.tgz#8c62168453badef702f34b45b6ee899574a6a65d"
-  integrity sha512-kn/GU6SMRYPxUakNXhpP0EedT/KmaPzr0H5lIsDogrykbaxOpOfAFfk5XA7DZrJyMAv1wlMV3CPcZruGXVVUZw==
+prettier@^1.16.4:
+  version "1.16.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
+  integrity sha512-ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==
 
 pretty-bytes@^5.1.0:
   version "5.1.0"
