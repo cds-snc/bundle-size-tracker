@@ -3,6 +3,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8bc41e8da2ba8bc90471/maintainability)](https://codeclimate.com/github/cds-snc/bundle-size-tracker/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/cds-snc/bundle-size-tracker/badge.svg)](https://snyk.io/test/github/cds-snc/bundle-size-tracker)
 
+(la version française suit)
+
 The purpose of this cloud function is to record changes in your bundle size over time.
 
 ## What does that mean?
@@ -170,3 +172,175 @@ Currently the cloud function is deployed using Google Cloud functions because th
 ## Hey you! Yes you!
 
 You seem like you might be interested in what we do, find out more here: [https://digital.canada.ca/work-with-us/](https://digital.canada.ca/work-with-us/)
+
+
+
+
+# Outil de suivi de la taille des paquets
+
+Cette fonction infonuagique vise à consigner les changements dans la taille de votre paquet (bundle) au fil du temps.
+
+## Qu’est-ce que cela veut dire?
+
+Supposons que vous ajoutez un progiciel à votre paquet, par exemple https://momentjs.com, qui est une excellente bibliothèque. Vous ouvrez votre demande de tirage (pull request), et la fonction vous dit qu’en ajoutant moment.js, vous ajoutez maintenant 66 ko à votre paquet. Après réflexion, vous vous rendez compte que vous n’avez besoin que d’une seule fonctionnalité de moment.js, donc vous trouvez plutôt une autre solution, https://date-fns.org/, et vous l’insérez. Votre prochaine validation (commit) indique une augmentation de 1,03 ko par rapport à la taille de base actuelle et une réduction de -65,6 ko par rapport à votre validation précédente avec moment.js.
+
+**Demande de tirage – L’outil de suivi exécute et sauvegarde les données :
+
+<img src="https://user-images.githubusercontent.com/62242/50724546-29f07a80-10bd-11e9-8fff-c07637d053fd.gif" width="600">
+
+Résultat :
+
+
+<img src="https://user-images.githubusercontent.com/62242/50724545-278e2080-10bd-11e9-81f5-0c3fb20210d6.png" width="600">
+
+
+## Pourquoi est-ce important?
+
+La taille des paquets est importante lorsque vous concevez des services qui doivent être rapides sur les réseaux 3G.
+
+## Table des matières
+
+[Exigences](#Exigences)
+[Installation](#Installation)
+[Variables d’environnement](#Variables d’environnement)
+[Flux d’information](#Flux d’information)
+[Pourquoi ces restrictions?](#Pourquoi ces restrictions?)
+
+## Exigences
+
+Webpack
+Le code actuel du plugiciel de taille [Webpack]((https://github.com/GoogleChromeLabs/size-plugin)) utilise une fourche (fork).
+Compatibilité avec Node 8
+NPM
+
+## Installation
+
+#### Fonction infonuagique
+
+Nous utilisons le cadre [Serverless](https://serverless.com/) pour échafauder nos fonctions. L’idée est de rester agnostique à la plateforme, mais il s’est rapidement avéré que les fonctions de Google Cloud étaient plus faciles à utiliser que celles d’AWS. Par conséquent, pour installer le code sur une fonction Google Cloud, vous devez suivre les instructions décrites ici pour configurer les bons justificatifs d’identité. Assurez-vous d’installer aussi le cadre Severless en suivant les instructions indiquées.
+
+Modifiez le fichier `Serverless.yml` en remplaçant les valeurs de `service` et de `project` par le nom de votre projet Google Cloud, et en modifiant le chemin d’accès au fichier JSON de justificatifs d’identité que vous avez créé en utilisant les instructions de Serverless ci-dessus sous la clé `credentials`.
+
+our stocker vos données, vous devez également créer un projet [Google Firestore](https://console.firebase.google.com). L’URL de ce projet doit remplir la variable d’environnement `FIRESTORE_URL`.
+
+Une fois que vous avez créé votre Firestore, vous devez créer un index pour que les données fonctionnent correctement. Vous pouvez le faire à l’URL suivante :
+`https://console.firebase.google.com/project/PROJECT_NAME/database/firestore/indexes?create_index=EgxidW5kbGVfc2l6ZXMaCAoEcmVwbxACGg0KCXRpbWVzdGFtcBADGgwKCF9fbmFtZV9fEAM`
+
+où `PROJECT_NAME` est le nom de votre projet Google. Si vous ne le faites pas, la fonction infonuagique échouera.
+
+Vous devez également générer un jeton GitHub pour écrire les statuts dans vos dépôts (repositories). Pour en savoir plus sur les jetons, cliquez [ici](https://blog.github.com/2013-05-16-personal-api-tokens/). Vous n’avez qu’à activer les permissions de base des dépôts. Utilisez ce jeton dans la variable d’environnement `GITHUB_TOKEN`.
+
+Sauvegardez l’information sur l’environnement dans un fichier `.env.` Consultez `.env.example et` le [tableau ci-dessous](https://github.com/cds-snc/bundle-size-tracker/blob/master/README.md%23environment-variables) pour en savoir plus.
+
+Installez toutes les dépendances requises à l’aide de votre gestionnaire de progiciel de nœuds préféré, puis exécutez simplement `serverless deploy`. Votre fonction infonuagique est maintenant déployée. L’URL de la fonction infonuagique sera renvoyée, et vous pourrez l’utiliser comme Webhook. Pour en savoir davantage sur les Webhooks de GitHub, cliquez [ici](https://help.github.com/articles/about-webhooks/).
+
+Pour analyser les tailles de vos progiciels, vous devrez installer `size-plugin` comme décrit ci-dessous.
+
+
+#### Plugiciel de taille Webpack
+
+##### Installation
+
+```
+yarn add --dev cds-size-plugin
+Configuration de WebPack
+const path = require("path");
+const SizePlugin = require("cds-size-plugin");
+```
+
+```
+module.exports = ({ mode = "production" }) => {
+  return {
+    entry: "./src/client.js",
+    mode: mode,
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js"
+    },
+    plugins: [
+      new SizePlugin()
+    ],
+    ...
+  };
+};
+```
+
+##### RazzleJS
+```
+//razzle.config.js
+
+module.exports = {
+  modify: (config. Target, dev }, webpack) => {
+    const SizePlugin = require("cds-size-plugin");
+    config.plugins.push(
+      new SizePlugin()
+    );
+    return config;
+  }
+};
+```
+
+##### next.js
+```
+//next.config.js
+
+module.exports = {
+  webpack: function (config, { isServer }) {
+    const SizePlugin = require("cds-size-plugin");
+    config.plugins.push(
+      new SizePlugin()
+    );
+    return config;
+  }
+};
+```
+
+## Environment variables
+
+Les variables requises sont définies dans `.env.example` avec les valeurs par défaut. Elles sont utilisées comme suit :
+
+| Nom  | objet  | Écrasable par dépôt   |
+|---|---|---|
+|  BUILD_CMD | La commande que NPM exécute lorsqu’il essaie de constituer vos paquets. La valeur par défaut est supposée être `build`, mais elle peut être tout ce que vous voulez.  | OUI  |
+|  CHARTING_URL | L’URL de votre fonction infonuagique de classement pour classer les données que vous avez recueillies. Non requis.  | NON  |
+|  FIRESTORE_URL | L’URL de votre Firestore pour suivre vos données de taille de paquet. | NON  |
+|  GITHUB_TOKEN |  Le jeton permettant à la fonction infonuagique d’envoyer des mises à jour de statut à vos demandes de tirage. |  NON |
+|  SRC_PATH | e chemin d’accès à votre application par rapport à votre dépôt. Si votre application est à la racine, elle est vide. Si vous utilisez un dépôt monolithique, vous pourriez vouloir baisser d’un ou de plusieurs niveaux.  | OUI  |
+|  TMP_PATH |  Le chemin d’accès au répertoire dans lequel votre dépôt est cloné par la fonction infonuagique. /tmp est la valeur raisonnable par défaut, mais n’hésitez pas à l’adapter au besoin. | NON  |
+
+#### Comment fonctionne l’écrasement par dépôt?
+
+Vous pouvez créer un fichier `.bundle-size-tracker-config` à la racine de votre dépôt. La fonction infonuagique respectera les variables d’environnement que vous allez y définir par rapport à celles qui ont été configurées pour elle-même. C’est utile si, par exemple, vous utilisez la même fonction infonuagique sur dix dépôts différents, mais que l’un d’eux n’utilise pas la commande de la version normale ou est un dépôt monolithique. Voici un exemple : https://github.com/cds-snc/bundle-size-tracker-demo-app/blob/master/.bundle-size-tracker-config
+
+
+#### Flux d’information
+
+Le flux d’information est simple :
+
+1. Un dépôt reçoit une validation.
+2. GitHub pousse la validation vers une fonction infonuagique.
+3. La fonction infonuagique vérifie le dépôt Git au moment de la validation.
+4. La fonction infonuagique vérifie si le dépôt contient le plugiciel Webpack requis.
+5. La fonction infonuagique avise GitHub qu’elle vérifie la taille du paquet.
+6. La fonction infonuagique cherche les renseignements historiques sur le dépôt et la branche dans une base de données.
+7. La fonction infonuagique installe les progiciels dans le dépôt et exécute la version pour déterminer la taille du paquet.
+8. La fonction infonuagique enregistre les nouveaux résultats dans la base de données.
+9. La fonction infonuagique calcule le changement delta et l’affiche dans GitHub.
+
+Le classement des données est également en cours – https://github.com/cds-snc/bundle-size-charter
+
+### Mise en œuvre
+
+À l’heure actuelle, la fonction infonuagique est déployée à l’aide des fonctions de Google Cloud parce qu’elles installeront les progiciels NPM et Yarn dans le cadre de leur déploiement. Les données sont actuellement stockées dans Firebase.
+
+### Pourquoi ces restrictions?
+
+- Webpack – Webpack est requis pour le plugiciel de la taille des paquets.
+- Compatibilité avec Node 8 – C’est le moteur d’exécution sur les fonctions de Google Cloud
+- NPM – Il s’agit du gestionnaire de progiciels qui est installé sur les fonctions de Google Cloud.
+
+### Vous! Oui, vous!
+
+Vous semblez intéressé par ce que nous faisons. Cliquez sur le lien suivant pour en savoir plus :
+https://numerique.canada.ca/travaillez-avec-nous/
+
